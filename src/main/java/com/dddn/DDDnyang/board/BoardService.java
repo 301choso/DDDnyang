@@ -1,4 +1,4 @@
-package com.dddn.DDDnyang.Board;
+package com.dddn.DDDnyang.board;
 
 public interface BoardService {
 

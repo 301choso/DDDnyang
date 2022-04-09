@@ -113,20 +113,16 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.7</version>
-			<scope>test</scope>
-		</dependency>
-		
-		<!-- JDBC 설정하기 -->
-     <dependency>
-	    <groupId>oracle.jdbc</groupId>
-	    <artifactId>OracleDriver</artifactId>
-	    <version>12.1.0.2.0</version>
-	    <scope>system</scope>
-	    <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/ojdbc7.jar</systemPath>
-      </dependency>
-     
-      
+			<version>4.12</version>
+			<scope>test</scope>			
+		</dependency> 
+		<!-- Spring-test -->
+	    <!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
+	    <dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-test</artifactId>
+	        <version>${org.springframework-version}</version>
+	    </dependency>
       <dependency>
           <groupId>mysql</groupId>
           <artifactId>mysql-connector-java</artifactId>
@@ -283,12 +279,4 @@
             </plugin>
         </plugins>
     </build>
-    
-     <!-- 오라클 드라이버 라이센스 얻어오는 구문 -->
-    <repositories>
-       <repository>
-           <id>mesir-repo</id>
-           <url>http://mesir.googlecode.com/svn/trunk/mavenrepo</url>
-       </repository>
-    </repositories> 
 </project>

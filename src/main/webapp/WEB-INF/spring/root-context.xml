@@ -4,5 +4,28 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		
+	
+	<!-- config > db.properties 설정 읽기 -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:config/jdbc/db.properties</value>
+			</list>		
+		</property>
+	</bean>
+	
+	<!-- database -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">	  
+	    <property name="driverClassName" value="${db.driverClassName}"/> 
+        <property name="url" value="${db.url}"/> 
+        <property name="username" value="${db.username}"/> 
+        <property name="password" value="${db.password}"/>
+    </bean>
+    
+	<!-- mybatis SqlSessionFactoryBean -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="configLocation" value="classpath:config/mybatis-config.xml" />
+ 		<property name="mapperLocations" value="classpath:mappers/**/*.xml" />
+	</bean>	
 </beans>
