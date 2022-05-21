@@ -5,6 +5,11 @@
 	
 <mapper namespace="board">
 
-	
+<select id="listBoard" resultType="boardVO">
+	SELECT 
+	*
+	FROM
+	BOARD 
+</select>	
 
 </mapper>

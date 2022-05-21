@@ -28,4 +28,8 @@
         <property name="configLocation" value="classpath:config/mybatis-config.xml" />
  		<property name="mapperLocations" value="classpath:mappers/**/*.xml" />
 	</bean>	
+	<bean id ="sqlSession"
+	    class= "org.mybatis.spring.SqlSessionTemplate" >
+	    <constructor-arg ref= "sqlSessionFactory"></constructor-arg >
+	</bean >
 </beans>

@@ -1,5 +1,107 @@
 package com.dddn.DDDnyang.board;
 
-public class BoardVO {
+import java.sql.Date;
 
+public class BoardVO {
+	private int board_id;
+	private String board_title;
+	private String board_content;
+	private Date board_date;
+	private int board_views;
+	private int board_like_it;
+	private String board_category;
+	private int member_num;
+	public int getBoard_id() {
+		return board_id;
+	}
+	public void setBoard_id(int board_id) {
+		this.board_id = board_id;
+	}
+	public String getBoard_title() {
+		return board_title;
+	}
+	public void setBoard_title(String board_title) {
+		this.board_title = board_title;
+	}
+	public String getBoard_content() {
+		return board_content;
+	}
+	public void setBoard_content(String board_content) {
+		this.board_content = board_content;
+	}
+	public Date getBoard_date() {
+		return board_date;
+	}
+	public void setBoard_date(Date board_date) {
+		this.board_date = board_date;
+	}
+	public int getBoard_views() {
+		return board_views;
+	}
+	public void setBoard_views(int board_views) {
+		this.board_views = board_views;
+	}
+	public int getBoard_like_it() {
+		return board_like_it;
+	}
+	public void setBoard_like_it(int board_like_it) {
+		this.board_like_it = board_like_it;
+	}
+	public String getBoard_category() {
+		return board_category;
+	}
+	public void setBoard_category(String board_category) {
+		this.board_category = board_category;
+	}
+	public int getMember_num() {
+		return member_num;
+	}
+	public void setMember_num(int member_num) {
+		this.member_num = member_num;
+	}
+	
+	 
+	/*private int noticeId;
+	private String noticeTitle;
+	private String noticeContent;
+	private Date noticeDate;
+	private int noticeViews;
+	private int noticeImage;
+	public int getNoticeId() {
+		return noticeId;
+	}
+	public void setNoticeId(int noticeId) {
+		this.noticeId = noticeId;
+	}
+	public String getNoticeTitle() {
+		return noticeTitle;
+	}
+	public void setNoticeTitle(String noticeTitle) {
+		this.noticeTitle = noticeTitle;
+	}
+	public String getNoticeContent() {
+		return noticeContent;
+	}
+	public void setNoticeContent(String noticeContent) {
+		this.noticeContent = noticeContent;
+	}
+	public Date getNoticeDate() {
+		return noticeDate;
+	}
+	public void setNoticeDate(Date noticeDate) {
+		this.noticeDate = noticeDate;
+	}
+	public int getNoticeViews() {
+		return noticeViews;
+	}
+	public void setNoticeViews(int noticeViews) {
+		this.noticeViews = noticeViews;
+	}
+	public int getNoticeImage() {
+		return noticeImage;
+	}
+	public void setNoticeImage(int noticeImage) {
+		this.noticeImage = noticeImage;
+	}*/
+	
 }
