@@ -58,50 +58,6 @@ public class BoardVO {
 	}
 	public void setMember_num(int member_num) {
 		this.member_num = member_num;
-	}
-	
-	 
-	/*private int noticeId;
-	private String noticeTitle;
-	private String noticeContent;
-	private Date noticeDate;
-	private int noticeViews;
-	private int noticeImage;
-	public int getNoticeId() {
-		return noticeId;
-	}
-	public void setNoticeId(int noticeId) {
-		this.noticeId = noticeId;
-	}
-	public String getNoticeTitle() {
-		return noticeTitle;
-	}
-	public void setNoticeTitle(String noticeTitle) {
-		this.noticeTitle = noticeTitle;
-	}
-	public String getNoticeContent() {
-		return noticeContent;
-	}
-	public void setNoticeContent(String noticeContent) {
-		this.noticeContent = noticeContent;
-	}
-	public Date getNoticeDate() {
-		return noticeDate;
-	}
-	public void setNoticeDate(Date noticeDate) {
-		this.noticeDate = noticeDate;
-	}
-	public int getNoticeViews() {
-		return noticeViews;
-	}
-	public void setNoticeViews(int noticeViews) {
-		this.noticeViews = noticeViews;
-	}
-	public int getNoticeImage() {
-		return noticeImage;
-	}
-	public void setNoticeImage(int noticeImage) {
-		this.noticeImage = noticeImage;
-	}*/
+	}	
 	
 }
