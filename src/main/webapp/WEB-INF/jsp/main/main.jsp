@@ -10,6 +10,7 @@
 <script type="text/javascript" src="https://unpkg.com/swiper/swiper-bundle.js"></script>
 <script type="text/javascript" src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <title>메인페이지</title>
+<%@include file="../common/header.jsp" %>
 <style>
 .swiper {
   width: 600px;
@@ -18,7 +19,7 @@
 </style>
 </head>
 <body>
-
+<section>
 <div class="swiper">
   <div class="swiper-wrapper">
     <div class="swiper-slide">Slide 1</div>
@@ -30,7 +31,7 @@
   <div class="swiper-button-prev"></div>
   <div class="swiper-button-next"></div>
 </div>
-<section>
+
 	<article>
 	<c:forEach items="${boardList}" var="boardList">	
 		<h1>최신글</h1>
