@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 	<script src="https://kit.fontawesome.com/6835579bc4.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
 	
@@ -89,7 +89,7 @@ a {
       
       <ul class="navbar_login">
         <li><a href="" data-toggle="modal" data-target="#login_view">Login</a></li>
-        <li><a href="<%=contextPath%>/member/memberJoin">회원가입</a></li>
+        <li><a href="<%=contextPath%>/member/joinPage">회원가입</a></li>
       </ul>
 
     </nav>
