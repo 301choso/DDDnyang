@@ -40,7 +40,12 @@
 		<div>value</div>
 	</c:forEach>
 	</article>
-	<article>	
+	<article>
+	
+	<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+  Button
+</button>
+	
 		<h1>공지사항</h1>
 		<div>no</div>
 		<div>name</div>
