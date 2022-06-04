@@ -16,7 +16,7 @@ public class MainController {
 	@Autowired
 	private BoardService boardService;
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "main/main", method = RequestMethod.GET)
 	public ModelAndView goMain() {
 		ModelAndView mav = new ModelAndView();
 		//최신글
@@ -24,7 +24,7 @@ public class MainController {
 		//공지사항
 		
 		mav.addObject("boardList", boardList);
-		mav.setViewName("main/main");
+		
 		return mav;
 	}
 	

@@ -4,9 +4,9 @@
  "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
  	<typeAliases>
-		<typeAlias alias="BoardVO" type="com.dddn.DDDnyang.board.BoardVO"/>
-		<!-- <typeAlias alias="NoticeVO" type="com.dddn.DDDnyang.login.LoginVO"/>
-		<typeAlias alias="MemberVO" type="com.dddn.DDDnyang.member.MemberVO"/>
-		<typeAlias alias="MypageVO" type="com.dddn.DDDnyang.myPage.MyPageVO"/> -->
+		<typeAlias alias="boardVO" type="com.dddn.DDDnyang.board.BoardVO"/>
+		<!-- <typeAlias alias="noticeVO" type="com.dddn.DDDnyang.login.LoginVO"/>
+		<typeAlias alias="memberVO" type="com.dddn.DDDnyang.member.MemberVO"/>
+		<typeAlias alias="mypageVO" type="com.dddn.DDDnyang.myPage.MyPageVO"/> -->
 	</typeAliases> 
 </configuration>

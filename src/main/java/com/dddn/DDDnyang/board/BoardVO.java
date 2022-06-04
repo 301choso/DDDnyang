@@ -11,6 +11,7 @@ public class BoardVO {
 	private int board_like_it;
 	private String board_category;
 	private int member_num;
+	
 	public int getBoard_id() {
 		return board_id;
 	}
@@ -58,6 +59,6 @@ public class BoardVO {
 	}
 	public void setMember_num(int member_num) {
 		this.member_num = member_num;
-	}	
-	
+	}
+		
 }
