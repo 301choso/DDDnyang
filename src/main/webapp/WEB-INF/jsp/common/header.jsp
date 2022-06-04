@@ -112,8 +112,8 @@ a {
               <input type="text" class="form-control" name="user_pw" id="user_pw" placeholder="비밀번호">
             </div>
             <div class="modal-footer" style="align-content: center;">
-              <button type="submit" class="btn btn-secondary" id="login_btn">로그인</button>
-              <button type="button" class="btn btn-secondary" id="member_join_btn">회원가입</button>
+              <button type="submit" class="btn" id="login_btn">로그인</button>
+              <button type="button" class="btn" id="member_join_btn">회원가입</button>
             </div>
           <div class="modal-footer">
             <div>
