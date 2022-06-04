@@ -14,5 +14,9 @@ public class BoardDao {
 	public List<BoardVO> listBoard(BoardVO boardVO) {		
 		return sqlSession.selectList("board.listBoard");
 	}
+
+	public BoardVO boardDetail(int board_id) {
+		return (BoardVO) sqlSession.selectOne("board.boardDetail", board_id);
+	}
 	
 }

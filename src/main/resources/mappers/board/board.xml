@@ -4,12 +4,62 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="board">
+<!-- <resultMap type="boradVO" id="boardResult">
+	<result property="board_id" column="BOARD_ID"/>
+	<result property="board_title" column="BOARD_TITLE"/>
+	<result property="board_content" column="BOARD_CONTENT"/>
+	<result property="board_date" column="BOARD_DATE"/>
+	<result property="board_views" column="BOARD_VIEWS"/>
+	<result property="board_like_it" column="BOARD_LIKE_IT"/>
+	<result property="board_category" column="BOARD_CATEGORY"/>
+	<result property="member_num" column="MEMBER_NUM"/>
+</resultMap> -->
 
 <select id="listBoard" resultType="boardVO">
-	SELECT 
-	*
+	SELECT BOARD_ID
+		, BOARD_TITLE
+		, BOARD_CONTENT
+		, BOARD_DATE
+		, BOARD_VIEWS
+		, BOARD_LIKE_IT
+		, BOARD_CATEGORY
+		, MEMBER_NUM
 	FROM
 	BOARD 
 </select>	
 
+<select id="boardDetail" resultType="boardVO" parameterType="int">
+	SELECT BOARD_ID
+		, BOARD_TITLE
+		, BOARD_CONTENT
+		, BOARD_DATE
+		, BOARD_VIEWS
+		, BOARD_LIKE_IT
+		, BOARD_CATEGORY
+		, MEMBER_NUM
+	FROM
+	BOARD 
+	<where>
+		BOARD_ID = #{board_id}
+	</where>
+</select>
+
+<insert id="insertBoard" parameterType="boardVO">
+	INSERT INTO BOARD(BOARD_ID 
+				, BOARD_TITLE
+				, BOARD_CONTENT
+				, BOARD_DATE
+				, BOARD_VIEWS
+				, BOARD_LIKE_IT
+				, BOARD_CATEGORY
+				, MEMBER_NUM)
+			VALUE(#{board_id}
+				, #{board_title}
+				, #{board_content}
+				, #{board_date}
+				, 0
+				, 0
+				, #{board_category}
+				, #{member_num})
+</insert>
 </mapper>
