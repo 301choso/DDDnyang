@@ -5,4 +5,5 @@ import java.util.Map;
 public interface MemberService {
 	public void joinMember(Map<String, String> map);
 	public int checkId(String member_id);
+	public Map<String, String> checkLogin(Map<String, String> map);
 }

@@ -7,7 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<%@include file="../common/header.jsp" %>
 <style type="text/css">
 #id_ok{
 	display: none;
@@ -45,7 +44,7 @@
 <body>
 <section>
 <div class="flex justify-center">
-	<form class="w-full max-w-lg justify-center" action="<%=contextPath%>/member/joinProcess" id="memberJoin" method="post">
+	<form class="w-full max-w-lg justify-center" action="${contextPath}/member/joinProcess" id="memberJoin" method="post">
 	  <div class="flex flex-wrap -mx-3 mb-6">
 	    <div class="w-full px-3">
 	      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="member_id">

@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @RequestMapping("/member")
 @Controller("memberController")
@@ -77,6 +81,46 @@ public class MemberController {
 		resEntity = new ResponseEntity(message, responseHeaders, HttpStatus.OK);
 		
 		return resEntity;
+	}
+	
+	@RequestMapping(value="/loginFrm")
+	public String loginFrm() {
+		return "/member/loginFrm";
+	}
+	
+	@RequestMapping(value="/login.do", method = RequestMethod.POST)
+	public ModelAndView loginProcess(@RequestParam Map<String, String> loginMap, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		HttpSession session = request.getSession();
+		Map<String, String> member = null;
+		try {
+			member = memberService.checkLogin(loginMap);
+			if(member == null) {
+				String message = "아이디 혹은 비밀번호를 확인해주세요.";
+				mv.addObject("message", message);
+				mv.setViewName("/member/loginFrm");
+				session.setAttribute("logOn", false);
+			} else {
+				session.setAttribute("logOn", true);
+				session.setAttribute("login_id", member.get("member_id"));
+				mv.setViewName("redirect:/main/main");							
+			}			
+		} catch(Exception e) {
+			String message = "에러가 발생했습니다. 다시 시도해주세요";
+			mv.addObject("message", message);
+			e.printStackTrace();
+		}
+
+		return mv;
+	}
+	
+	@RequestMapping(value="/loginOutProcess")
+	public String logoutProcess(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.removeAttribute("logOn");
+		session.removeAttribute("login_id");
+		
+		return "main/main";
 	}
 	
 }

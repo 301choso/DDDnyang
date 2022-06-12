@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<script src="https://kit.fontawesome.com/6835579bc4.js" crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
 	
 <style type="text/css">
 section {
@@ -86,44 +85,20 @@ a {
         <li><a href="#" class="nav_project"><i class="fa-solid fa-bullhorn"></i></a></li>
         <li><a href="#" class="nav_contact"><i class="fa-solid fa-user-group"></i></a></li>
       </ul>
-      
-      <ul class="navbar_login">
-        <li><a href="" data-toggle="modal" data-target="#login_view">Login</a></li>
-        <li><a href="<%=contextPath%>/member/joinPage">회원가입</a></li>
-      </ul>
-
+	<c:choose>
+		<c:when test="${logOn==true}">
+			<ul class="navbar_login">
+				<li><a href="<%=contextPath%>/member/loginOutProcess">LogOut</a></li>
+			</ul>
+		</c:when>
+		<c:otherwise>
+			<ul class="navbar_login">
+				<li><a href="<%=contextPath%>/member/loginFrm">Login</a></li>
+				<li><a href="<%=contextPath%>/member/joinPage">회원가입</a></li>
+			</ul>	
+		</c:otherwise>
+	</c:choose>
     </nav>
     
-  <!-- Modal -->
-  <div class="modal fade" id="login_view" role="dialog">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-            <h4 class="modal-title" id="myModalLabel"><i class="fa-solid fa-paw"></i>DDDNyang</h4>
-          <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-          
-        </div>
-        <div class="modal-body">
-          <form action="#">
-            <div class="input-group mb-3">
-              <input type="text" class="form-control" name="user_id" id="user_id" placeholder="아이디">
-            </div>
-            <div class="input-group mb-3">
-              <input type="text" class="form-control" name="user_pw" id="user_pw" placeholder="비밀번호">
-            </div>
-            <div class="modal-footer" style="align-content: center;">
-              <button type="submit" class="btn" id="login_btn">로그인</button>
-              <button type="button" class="btn" id="member_join_btn">회원가입</button>
-            </div>
-          <div class="modal-footer">
-            <div>
-              <a href="#" style="color: #2E2C2C;">아이디나 비밀번호를 잊으셨나요?</a>
-            </div>
-          </div>
-         </form>
-      </div>
-    </div>
-  </div>
-  </div>
 </body>
 </html>
