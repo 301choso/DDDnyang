@@ -15,15 +15,6 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp"/>
 	</definition> 
 		
-	<definition name="/member/memberJoin" extends="baseLayout">
-		<put-attribute name="title" value="회원가입" />
-		<put-attribute name="body" value="/WEB-INF/jsp/member/memberJoin.jsp" />
-	</definition>
-	
-	<definition name="/member/loginFrm" extends="baseLayout">
-		<put-attribute name="title" value="회원가입" />
-		<put-attribute name="body" value="/WEB-INF/jsp/member/loginFrm.jsp" />
-	</definition>
 </tiles-definitions>
 
 

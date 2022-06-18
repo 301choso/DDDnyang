@@ -103,6 +103,7 @@ public class MemberController {
 			} else {
 				session.setAttribute("logOn", true);
 				session.setAttribute("login_id", member.get("member_id"));
+				session.setAttribute("member_num", member.get("member_num"));
 				mv.setViewName("redirect:/main/main");							
 			}			
 		} catch(Exception e) {
