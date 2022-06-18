@@ -19,4 +19,8 @@ public class MemberDao {
 		int cnt = sqlSession.selectOne("member.checkId", member_id);
 		return cnt;
 	}
+	
+	public Map<String, String> loginCheck(Map<String, String> map) {
+		return sqlSession.selectOne("member.checkLogin", map);
+	}
 }

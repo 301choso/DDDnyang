@@ -21,4 +21,9 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.checkId(member_id);
 	}
 
+	@Override
+	public Map<String, String> checkLogin(Map<String, String> map) {
+		return memberDao.loginCheck(map);
+	}
+
 }

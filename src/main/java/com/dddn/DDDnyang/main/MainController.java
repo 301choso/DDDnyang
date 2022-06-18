@@ -16,6 +16,11 @@ public class MainController {
 	@Autowired
 	private BoardService boardService;
 	
+	@RequestMapping(value="/")
+	public String mainPage() {
+		return "main/main";
+	}
+	
 	@RequestMapping(value = "main/main", method = RequestMethod.GET)
 	public ModelAndView goMain() throws Exception {
 		ModelAndView mav = new ModelAndView();

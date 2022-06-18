@@ -23,6 +23,7 @@
 	 <definition name="common/*/*" extends="commonLayout">
 		<put-attribute name="body" value="/WEB-INF/jsp/common/{1}/{2}.jsp"/>
 	</definition> 
+
 </tiles-definitions>
 
 
