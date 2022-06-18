@@ -17,11 +17,11 @@ public class MainController {
 	private BoardService boardService;
 	
 	@RequestMapping(value = "main/main", method = RequestMethod.GET)
-	public ModelAndView goMain() {
+	public ModelAndView goMain() throws Exception {
 		ModelAndView mav = new ModelAndView();
-		//최신글
+		
 		List<BoardVO> boardList = boardService.listBoard(new BoardVO());
-		//공지사항
+	
 		
 		mav.addObject("boardList", boardList);
 		

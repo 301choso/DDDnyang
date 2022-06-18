@@ -45,21 +45,44 @@
 </select>
 
 <insert id="insertBoard" parameterType="boardVO">
-	INSERT INTO BOARD(BOARD_ID 
-				, BOARD_TITLE
+	INSERT INTO BOARD(BOARD_TITLE
 				, BOARD_CONTENT
 				, BOARD_DATE
 				, BOARD_VIEWS
 				, BOARD_LIKE_IT
 				, BOARD_CATEGORY
 				, MEMBER_NUM)
-			VALUE(#{board_id}
-				, #{board_title}
+			VALUE( #{board_title}
 				, #{board_content}
-				, #{board_date}
+				, NOW()
 				, 0
 				, 0
 				, #{board_category}
 				, #{member_num})
 </insert>
+
+<update id="updateBoard">
+	UPDATE BOARD 
+	<set>
+		<if test="board_title != null and board_title != '' ">
+			BOARD_TITLE = ${board_title},
+		</if>
+		<if test="board_content != null and board_content != '' ">
+			BOARD_CONTENT = ${board_content},
+		</if>
+		<if test="board_category != null and board_category != '' ">
+			BOARD_CATEGORY = ${board_category},
+		</if>
+	</set>	
+		<where>
+			BOARD_ID = #{board_id}
+		</where>
+</update>
+
+<delete id="deleteBoard">
+	DELETE FROM BOARD
+		<where>
+			BOARD_ID = #{board_id}
+		</where>
+</delete>
 </mapper>

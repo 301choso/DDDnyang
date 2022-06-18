@@ -20,4 +20,19 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.boardDetail(board_id);
 	}
 
+	@Override
+	public int insertBoard(BoardVO boardVO) {
+		return boardDao.insertBoard(boardVO);
+	}
+
+	@Override
+	public int updateBoard(BoardVO boardVO) throws Exception {
+		return boardDao.updateBoard(boardVO);
+	}
+
+	@Override
+	public int deleteBoard(int board_id) throws Exception {
+		return boardDao.deleteBoard(board_id);
+	}
+
 }

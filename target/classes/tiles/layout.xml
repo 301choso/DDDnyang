@@ -9,10 +9,19 @@
         <put-attribute name="header" value="/WEB-INF/jsp/common/header.jsp"/>
         <put-attribute name="body" value=""/>
     </definition> 
+    <!-- common -->
+    <definition name="commonLayout" template="/WEB-INF/jsp/common/commonLayout.jsp">
+        <put-attribute name="body" value=""/>
+    </definition>
     
     <!-- jsp 타일즈(1단) -->
 	 <definition name="*/*" extends="baseLayout">
 		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp"/>
+	</definition> 
+	
+	<!-- common 타일즈(2단) -->
+	 <definition name="common/*/*" extends="commonLayout">
+		<put-attribute name="body" value="/WEB-INF/jsp/common/{1}/{2}.jsp"/>
 	</definition> 
 </tiles-definitions>
 

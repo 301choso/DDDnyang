@@ -6,10 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-<link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.7/dist/flowbite.min.css" />
-<script type="text/javascript" src="https://unpkg.com/swiper/swiper-bundle.js"></script>
 <script type="text/javascript" src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
 <title>메인페이지</title>
@@ -38,7 +35,8 @@
 	<!-- board -->
 	<article class="flex justify-center pt-4">	
 	<div class="relative overflow-x-auto shadow-md sm:rounded-lg inline-block">
-		<p>최신글</p>
+		<span>최신글</span>
+		<span><a href="${contextPath}/board/goBoard.do">더보기</a></span>
 	    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 	        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 	            <tr>
@@ -66,7 +64,7 @@
 	                    ${i.index+1}
 	                </th>
 	                <td class="px-6 py-4">
-	                    <a href="${contextPath}/board/goBoardDetail.do?board_id=${bList.board_id}">${bList.board_title}</a>
+	                    <a href="${contextPath}/board/goView.do?board_id=${bList.board_id}">${bList.board_title}</a>
 	                </td>
 	                <td class="px-6 py-4">
 	                    ${bList.board_date}

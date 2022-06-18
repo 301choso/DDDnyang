@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 	<script src="https://kit.fontawesome.com/6835579bc4.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.7/dist/flowbite.min.css" />
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"></script>
@@ -16,7 +16,7 @@ section {
 	padding-top: 90px;
 }
 
-a {
+.navbar a {
   text-decoration: none;
   color: #f0f4f5;
 }
@@ -74,7 +74,7 @@ a {
     <nav class="navbar">
       
       <div class="navbar_logo">
-      	<a href="#">
+      	<a href="<%=contextPath%>/main/main.do">
 	        <i class="fa-solid fa-paw"></i>
         	DDDNyang
         </a>
