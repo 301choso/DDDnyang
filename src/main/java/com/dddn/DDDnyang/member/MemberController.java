@@ -26,20 +26,20 @@ public class MemberController {
 	@Autowired
 	MemberService memberService;
 	
-	//È¸¿ø°¡ÀÔ È­¸éÀ¸·Î ÀÌµ¿
+	//È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
 	@RequestMapping(value = "/joinPage")
 	public String joinPage() {
-		return "/member/memberJoin";
+		return "member/memberJoin";
 	}
 	
 	@RequestMapping(value = "checkId")
 	@ResponseBody
-	public int checkId(@RequestParam("id") String member_id) {	//¾ÆÀÌµğ Áßº¹ Ã¼Å©
+	public int checkId(@RequestParam("id") String member_id) {	//ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ßºï¿½ Ã¼Å©
 		int cnt = memberService.checkId(member_id);
 		return cnt;
 	}
 	
-	//½Å±Ô È¸¿ø Á¤º¸ ÀúÀå
+	//ï¿½Å±ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value = "/joinProcess")
 	public ResponseEntity joinProcess(HttpServletRequest request, HttpServletResponse response) {
 		String user_id = request.getParameter("member_id");
@@ -69,8 +69,8 @@ public class MemberController {
 		
 		memberService.joinMember(map);
 		message = "<script>";
-		message += "alert('È¸¿ø °¡ÀÔÀ» ¿Ï·áÇß½À´Ï´Ù. ¸ŞÀÎÈ­¸éÀ¸·Î ÀÌµ¿ÇÕ´Ï´Ù.');";
-		message += "location.href='"+request.getContextPath()+"/'";
+		message += "alert('íšŒì› ê°€ì…ì„ ì™„ë£Œí–ˆìŠµë‹ˆë‹¤. ë©”ì¸í™”ë©´ìœ¼ë¡œ ì´ë™í•©ë‹ˆë‹¤.');";
+		message += "location.href='"+request.getContextPath()+"/main/main'";
 		message += "</script>";
 		} catch(Exception e){
 			message = "<script>";
@@ -85,7 +85,7 @@ public class MemberController {
 	
 	@RequestMapping(value="/loginFrm")
 	public String loginFrm() {
-		return "/member/loginFrm";
+		return "member/loginFrm";
 	}
 	
 	@RequestMapping(value="/login.do", method = RequestMethod.POST)
@@ -96,18 +96,18 @@ public class MemberController {
 		try {
 			member = memberService.checkLogin(loginMap);
 			if(member == null) {
-				String message = "¾ÆÀÌµğ È¤Àº ºñ¹Ğ¹øÈ£¸¦ È®ÀÎÇØÁÖ¼¼¿ä.";
+				String message = "ï¿½ï¿½ï¿½Ìµï¿½ È¤ï¿½ï¿½ ï¿½ï¿½Ğ¹ï¿½È£ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½.";
 				mv.addObject("message", message);
-				mv.setViewName("/member/loginFrm");
+				mv.setViewName("member/loginFrm");
 				session.setAttribute("logOn", false);
 			} else {
 				session.setAttribute("logOn", true);
 				session.setAttribute("login_id", member.get("member_id"));
 				session.setAttribute("member_num", member.get("member_num"));
-				mv.setViewName("redirect:/main/main");							
+				mv.setViewName("main/main");							
 			}			
 		} catch(Exception e) {
-			String message = "¿¡·¯°¡ ¹ß»ıÇß½À´Ï´Ù. ´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä";
+			String message = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½. ï¿½Ù½ï¿½ ï¿½Ãµï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½";
 			mv.addObject("message", message);
 			e.printStackTrace();
 		}
