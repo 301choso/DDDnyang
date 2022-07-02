@@ -8,7 +8,7 @@
 	<script src="https://kit.fontawesome.com/6835579bc4.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.7/dist/flowbite.min.css" />
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"></script>
 	
 <style type="text/css">
@@ -84,7 +84,7 @@ section {
         <li><a href="#" class="nav_about "><i class="fa-solid fa-photo-film"></i></a></li>
         <li><a href="#" class="nav_project"><i class="fa-solid fa-pen-to-square"></i></a></li>
         <li><a href="#" class="nav_project"><i class="fa-solid fa-bullhorn"></i></a></li>
-        <li><a href="#" class="nav_contact"><i class="fa-solid fa-user-group"></i></a></li>
+        <li><a href="<%=contextPath%>/myPage/goMyPage.do" class="nav_contact"><i class="fa-solid fa-user-group"></i></a></li>
       </ul>
 	<c:choose>
 		<c:when test="${logOn==true}">

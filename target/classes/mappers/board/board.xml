@@ -65,13 +65,13 @@
 	UPDATE BOARD 
 	<set>
 		<if test="board_title != null and board_title != '' ">
-			BOARD_TITLE = ${board_title},
+			BOARD_TITLE = #{board_title},
 		</if>
 		<if test="board_content != null and board_content != '' ">
-			BOARD_CONTENT = ${board_content},
+			BOARD_CONTENT = #{board_content},
 		</if>
 		<if test="board_category != null and board_category != '' ">
-			BOARD_CATEGORY = ${board_category},
+			BOARD_CATEGORY = #{board_category},
 		</if>
 	</set>	
 		<where>

@@ -31,8 +31,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int deleteBoard(int board_id) throws Exception {
-		return boardDao.deleteBoard(board_id);
+	public int deleteBoard(BoardVO boardVO) throws Exception {
+		return boardDao.deleteBoard(boardVO);
 	}
 
 }

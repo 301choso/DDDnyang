@@ -2,6 +2,9 @@ package com.dddn.DDDnyang.board;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -64,10 +67,13 @@ public class BoardController {
 	
 	//입력하기
 	@RequestMapping(value = "/insertBoard.do", method = RequestMethod.POST)
-	public ModelAndView insertBoard(@ModelAttribute BoardVO boardVO) throws Exception {
+	public ModelAndView insertBoard(HttpServletRequest request, @ModelAttribute BoardVO boardVO) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		
-		boardVO.setMember_num(1); //수정예정
+		/*
+		 * HttpSession session = request.getSession();
+		 * session.getAttribute("member_num");
+		 */
+		boardVO.setMember_num(1);
 		int result = boardService.insertBoard(boardVO);
 		mav.addObject("result", result);
 		mav.setViewName("board/list");
@@ -76,11 +82,15 @@ public class BoardController {
 	}
 	
 	//수정하기
-	@RequestMapping(value = "/updateBoard.do", method = RequestMethod.PUT)
-	public ModelAndView updateBoard(@ModelAttribute BoardVO boardVO) throws Exception {
+	@RequestMapping(value = "/updateBoard.do", method = RequestMethod.POST)
+	public ModelAndView updateBoard(HttpServletRequest request, @ModelAttribute BoardVO boardVO) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		
-		boardVO.setMember_num(1); //수정예정
+		/*
+		 * HttpSession session = request.getSession();
+		 * session.getAttribute("member_num");
+		 */
+		boardVO.setMember_num(1);
 		int result = boardService.updateBoard(boardVO);
 		mav.addObject("result", result);
 		mav.setViewName("board/list");
@@ -88,11 +98,11 @@ public class BoardController {
 	}
 	
 	//삭제하기
-	@RequestMapping(value = "/deleteBoard.do", method = RequestMethod.DELETE)
-	public ModelAndView deleteBoard(@RequestParam("board_id") int board_id) throws Exception {
+	@RequestMapping(value = "/deleteBoard.do", method = RequestMethod.POST)
+	public ModelAndView deleteBoard(@ModelAttribute BoardVO boardVO) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		
-		int result = boardService.deleteBoard(board_id);
+		int result = boardService.deleteBoard(boardVO);
 		mav.addObject("result", result);
 		mav.setViewName("board/list");
 		return mav;

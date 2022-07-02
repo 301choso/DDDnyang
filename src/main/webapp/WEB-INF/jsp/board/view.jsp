@@ -12,15 +12,14 @@
 <body>
 <div class="pt-10"></div>	
 <div class="max-w-2xl mx-auto pt-10">
-	카테고리 : ${boardInfo.board_category}
-    <label for="chat" class="sr-only">Your message</label>
+	<div>카테고리 : ${boardInfo.board_category}</div>
     <div class="flex items-center py-2 px-3 bg-gray-50 rounded-lg dark:bg-gray-700">       
 	    제목 <div id="board_title" rows="1" class="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border 
 	    border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 	      ${boardInfo.board_title}
 	</div>	         
     </div>
-    <div>
+    <div class="py-8">
     	${boardInfo.board_content}
     </div>  
  

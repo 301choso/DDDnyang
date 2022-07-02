@@ -6,7 +6,8 @@
  	<typeAliases>
 		<typeAlias alias="boardVO" type="com.dddn.DDDnyang.board.BoardVO"/>
 		<!-- <typeAlias alias="noticeVO" type="com.dddn.DDDnyang.login.LoginVO"/>
-		<typeAlias alias="memberVO" type="com.dddn.DDDnyang.member.MemberVO"/>
-		<typeAlias alias="mypageVO" type="com.dddn.DDDnyang.myPage.MyPageVO"/> -->
+		<typeAlias alias="memberVO" type="com.dddn.DDDnyang.member.MemberVO"/>-->
+		<typeAlias alias="mypageVO" type="com.dddn.DDDnyang.myPage.MyPageVO"/>
+		<typeAlias alias="ImageVO" type="com.dddn.DDDnyang.image.ImageVO"/> 
 	</typeAliases> 
 </configuration>

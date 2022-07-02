@@ -35,7 +35,7 @@
 	<!-- board -->
 	<article class="flex justify-center pt-4">	
 	<div class="relative overflow-x-auto shadow-md sm:rounded-lg inline-block">
-		<span>최신글</span>
+		<span>작성글</span>
 		<span><a href="${contextPath}/board/goBoard.do">더보기</a></span>
 	    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 	        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -84,7 +84,7 @@
 	<div class="pr-4"></div>
 	<!-- notice -->
 	<div class="relative overflow-x-auto shadow-md sm:rounded-lg inline-block">
-		<p>공지사항</p>
+		<p>저장한 글</p>
 	    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 	        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 	            <tr>
@@ -135,12 +135,12 @@ const swiper = new Swiper('.swiper', {
 	
 	  cssMode: true,
 	  loop: true,
-
+	  
 	  pagination: {
 	    el: '.swiper-pagination',
 	    clickable: true
 	  },
-
+	  
 	  navigation: {
 	    nextEl: '.swiper-button-next',
 	    prevEl: '.swiper-button-prev',

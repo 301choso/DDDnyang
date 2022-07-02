@@ -25,11 +25,11 @@ public class BoardDao {
 	}
 
 	public int updateBoard(BoardVO boardVO) throws DataAccessException {
-		return sqlSession.update("board.insertBoard", boardVO);
+		return sqlSession.update("board.updateBoard", boardVO);
 	}
 
-	public int deleteBoard(int board_id) throws DataAccessException {
-		return sqlSession.update("board.deleteBoard", board_id);
+	public int deleteBoard(BoardVO boardVO) throws DataAccessException {
+		return sqlSession.update("board.deleteBoard", boardVO);
 	}
 	
 }

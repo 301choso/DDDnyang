@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="myPage">
+<select id="getMyPost" resultType="boardVO" parameterType="int">
+	SELECT BOARD_ID
+		, BOARD_TITLE
+		, BOARD_CONTENT
+		, BOARD_DATE
+		, BOARD_VIEWS
+		, BOARD_LIKE_IT
+		, BOARD_CATEGORY
+		, MEMBER_NUM
+	FROM BOARD 
+	WHERE MEMBER_NUM = #{member_num}
+	ORDER BY BOARD_DATE DESC
+</select>	
+
+
+</mapper>
