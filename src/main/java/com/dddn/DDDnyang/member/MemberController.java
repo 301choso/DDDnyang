@@ -29,7 +29,7 @@ public class MemberController {
 	//ȸ������ ȭ������ �̵�
 	@RequestMapping(value = "/joinPage")
 	public String joinPage() {
-		return "/member/memberJoin";
+		return "member/memberJoin";
 	}
 	
 	@RequestMapping(value = "checkId")
@@ -69,8 +69,8 @@ public class MemberController {
 		
 		memberService.joinMember(map);
 		message = "<script>";
-		message += "alert('ȸ�� ������ �Ϸ��߽��ϴ�. ����ȭ������ �̵��մϴ�.');";
-		message += "location.href='"+request.getContextPath()+"/'";
+		message += "alert('회원 가입을 완료했습니다. 메인화면으로 이동합니다.');";
+		message += "location.href='"+request.getContextPath()+"/main/main'";
 		message += "</script>";
 		} catch(Exception e){
 			message = "<script>";
@@ -85,7 +85,7 @@ public class MemberController {
 	
 	@RequestMapping(value="/loginFrm")
 	public String loginFrm() {
-		return "/member/loginFrm";
+		return "member/loginFrm";
 	}
 	
 	@RequestMapping(value="/login.do", method = RequestMethod.POST)
@@ -98,13 +98,13 @@ public class MemberController {
 			if(member == null) {
 				String message = "���̵� Ȥ�� ��й�ȣ�� Ȯ�����ּ���.";
 				mv.addObject("message", message);
-				mv.setViewName("/member/loginFrm");
+				mv.setViewName("member/loginFrm");
 				session.setAttribute("logOn", false);
 			} else {
 				session.setAttribute("logOn", true);
 				session.setAttribute("login_id", member.get("member_id"));
 				session.setAttribute("member_num", member.get("member_num"));
-				mv.setViewName("redirect:/main/main");							
+				mv.setViewName("main/main");							
 			}			
 		} catch(Exception e) {
 			String message = "������ �߻��߽��ϴ�. �ٽ� �õ����ּ���";
