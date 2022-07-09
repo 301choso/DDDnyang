@@ -26,20 +26,21 @@ public class MemberController {
 	@Autowired
 	MemberService memberService;
 	
-	//ȸ������ ȭ������ �̵�
+	//회원가입 폼으로 이동
 	@RequestMapping(value = "/joinPage")
 	public String joinPage() {
 		return "member/memberJoin";
 	}
 	
+	//ID중복 체크
 	@RequestMapping(value = "checkId")
 	@ResponseBody
-	public int checkId(@RequestParam("id") String member_id) {	//���̵� �ߺ� üũ
+	public int checkId(@RequestParam("id") String member_id) {
 		int cnt = memberService.checkId(member_id);
 		return cnt;
 	}
 	
-	//�ű� ȸ�� ���� ����
+	//회원가입
 	@RequestMapping(value = "/joinProcess")
 	public ResponseEntity joinProcess(HttpServletRequest request, HttpServletResponse response) {
 		String user_id = request.getParameter("member_id");
@@ -55,9 +56,9 @@ public class MemberController {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("member_id", user_id);
 		map.put("member_pw", user_pw);
-		map.put("member_email", user_name);
+		map.put("member_email", user_mail);
 		map.put("member_call", user_phone);
-		map.put("member_name", user_mail);
+		map.put("member_name", user_name);
 		
 		String message = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
@@ -83,11 +84,13 @@ public class MemberController {
 		return resEntity;
 	}
 	
+	//로그인 폼으로 이동
 	@RequestMapping(value="/loginFrm")
 	public String loginFrm() {
 		return "member/loginFrm";
 	}
 	
+	//로그인 프로세스
 	@RequestMapping(value="/login.do", method = RequestMethod.POST)
 	public ModelAndView loginProcess(@RequestParam Map<String, String> loginMap, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
@@ -96,18 +99,22 @@ public class MemberController {
 		try {
 			member = memberService.checkLogin(loginMap);
 			if(member == null) {
-				String message = "���̵� Ȥ�� ��й�ȣ�� Ȯ�����ּ���.";
+				String message = "아이디 또는 비밀번호를 확인해 주세요.";
 				mv.addObject("message", message);
 				mv.setViewName("member/loginFrm");
 				session.setAttribute("logOn", false);
 			} else {
+				if(loginMap.get("user_id").equals("admin")) {
+					mv.setViewName("admin/member/memberList");
+				} else {
+					mv.setViewName("main/main");
+				}
 				session.setAttribute("logOn", true);
 				session.setAttribute("login_id", member.get("member_id"));
 				session.setAttribute("member_num", member.get("member_num"));
-				mv.setViewName("main/main");							
 			}			
 		} catch(Exception e) {
-			String message = "������ �߻��߽��ϴ�. �ٽ� �õ����ּ���";
+			String message = "에러가 발생했습니다. "+e.getMessage();
 			mv.addObject("message", message);
 			e.printStackTrace();
 		}
@@ -115,6 +122,7 @@ public class MemberController {
 		return mv;
 	}
 	
+	//로그아웃
 	@RequestMapping(value="/loginOutProcess")
 	public String logoutProcess(HttpServletRequest request) {
 		HttpSession session = request.getSession();

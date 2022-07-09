@@ -16,4 +16,37 @@
 	 FROM MEMBER
 	 ORDER BY MEMBER_NUM
 </select>
+
+<select id="selectInfo" resultType="java.util.Map">
+	SELECT 
+		MEMBER_ID, 
+		MEMBER_EMAIL,
+		MEMBER_CALL,
+		MEMBER_NAME,
+		MEMBER_JOIN_DATE,
+		MEMBER_YN
+	 FROM MEMBER
+	 WHERE MEMBER_ID = #{member_id}
+</select>
+
+<update id="updateInfo" parameterType="java.util.Map">
+	UPDATE MEMBER
+	<set>
+		<if test="member_name != null and member_name != '' ">
+			MEMBER_NAME = #{member_name},
+		</if>
+		<if test="member_email != null and member_email != '' ">
+			MEMBER_EMAIL = #{member_email},
+		</if>
+		<if test="member_call != null and member_call != '' ">
+			MEMBER_CALL = #{member_call},
+		</if>
+		<if test="member_yn != null and member_yn != '' ">
+			MEMBER_YN = #{member_yn},
+		</if>
+	</set>	
+		<where>
+			MEMBER_ID = #{member_id}
+		</where>
+</update>
 </mapper>

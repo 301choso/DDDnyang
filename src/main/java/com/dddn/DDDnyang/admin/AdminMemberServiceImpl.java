@@ -18,6 +18,16 @@ public class AdminMemberServiceImpl implements AdminmemberService {
 	public List<Map<String, Object>> selectMember(Map<String, Object> parameterMap) {
 		return memberDao.selectMember(parameterMap);
 	}
+
+	@Override
+	public Map<String, Object> selectInfo(String member_id) {
+		return memberDao.selectInfo(member_id);
+	}
+
+	@Override
+	public void updateInfo(Map<String, String> parameterMap) {
+		memberDao.updateInfo(parameterMap);		
+	}
 	
 
 }
