@@ -15,6 +15,10 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+	setTimeout(() => {
+		$('select[name=dataTable_length]').addClass("text-sm w-24");
+	}, 300);
+
 	$("#dataTable").DataTable({
 		paging: true,
 	    info:true,
@@ -25,12 +29,9 @@ $(document).ready(function(){
 	    serverSide: false,
 	    searching: true,
 	    autoWidth:true,
-	    stateSaveParams : function (settings, data) {
-			data.search.page = "1";
-			data.search.search = "";
-			data.search.start = 0;
-			data.start = 0;
-		},
+	    lengthMenu: [ 10, 20, 30, 40, 50 ],
+	    displayLength: 20,
+	    order:[[4, 'desc']],
     	ajax: {
     		  url:"<%=contextPath%>/admin/createTable",
     		  type:"POST",

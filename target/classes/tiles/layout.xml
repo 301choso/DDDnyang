@@ -13,6 +13,12 @@
     <definition name="commonLayout" template="/WEB-INF/jsp/common/commonLayout.jsp">
         <put-attribute name="body" value=""/>
     </definition>
+
+    <!-- admin 레이아웃 -->
+    <definition name="adminLayout" template="/WEB-INF/jsp/common/adminLayout.jsp">
+    	<put-attribute name="sidebar" value="/WEB-INF/jsp/common/sidebar.jsp"/>
+        <put-attribute name="body" value=""/>
+    </definition>
     
     <!-- jsp 타일즈(1단) -->
 	 <definition name="*/*" extends="baseLayout">
@@ -22,6 +28,11 @@
 	<!-- common 타일즈(2단) -->
 	 <definition name="common/*/*" extends="commonLayout">
 		<put-attribute name="body" value="/WEB-INF/jsp/common/{1}/{2}.jsp"/>
+	</definition> 
+	
+	<!-- common 타일즈(2단) -->
+	 <definition name="admin/*/*" extends="adminLayout">
+		<put-attribute name="body" value="/WEB-INF/jsp/admin/{1}/{2}.jsp"/>
 	</definition> 
 
 </tiles-definitions>

@@ -1,4 +1,4 @@
-package com.dddn.DDDnyang.admin;
+package com.dddn.DDDnyang.admin.member;
 
 import java.util.List;
 import java.util.Map;
