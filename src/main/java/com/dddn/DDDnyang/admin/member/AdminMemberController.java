@@ -74,7 +74,6 @@ public class AdminMemberController {
 	
 	@RequestMapping(value="member/infoModify")
 	public ModelAndView memberInfoModify(@RequestParam Map<String, String> modifyMap) {
-		System.out.println("확인 = "+modifyMap.toString());
 		ModelAndView mv = new ModelAndView();
 		memberService.updateInfo(modifyMap);
 		mv.setViewName("admin/member/memberList");
