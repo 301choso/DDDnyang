@@ -70,8 +70,8 @@ public class MemberController {
 		
 		memberService.joinMember(map);
 		message = "<script>";
-		message += "alert('회원 가입을 완료했습니다. 메인화면으로 이동합니다.');";
-		message += "location.href='"+request.getContextPath()+"/main/main'";
+		message += "alert('ȸ�� ������ �Ϸ��߽��ϴ�. ����ȭ������ �̵��մϴ�.');";
+		message += "location.href='"+request.getContextPath()+"/'";
 		message += "</script>";
 		} catch(Exception e){
 			message = "<script>";

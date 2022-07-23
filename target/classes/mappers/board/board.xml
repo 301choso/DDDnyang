@@ -85,4 +85,14 @@
 			BOARD_ID = #{board_id}
 		</where>
 </delete>
+
+<update id="doBoardViewCntUpdate">
+	UPDATE 
+		BOARD 	
+	SET 
+		BOARD_VIEWS = BOARD_VIEWS + 1
+	WHERE 
+		BOARD_ID = #{board_id}
+</update>
+
 </mapper>

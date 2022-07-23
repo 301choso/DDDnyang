@@ -15,6 +15,7 @@ public class BoardVO {
 	public int getBoard_id() {
 		return board_id;
 	}
+	
 	public void setBoard_id(int board_id) {
 		this.board_id = board_id;
 	}
@@ -60,5 +61,4 @@ public class BoardVO {
 	public void setMember_num(int member_num) {
 		this.member_num = member_num;
 	}
-		
 }

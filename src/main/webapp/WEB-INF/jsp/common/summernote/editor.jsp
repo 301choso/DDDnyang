@@ -32,13 +32,14 @@
                 disableResizeEditor: true,
                 lang: 'ko-KR',
                 callbacks: {
-                    onImageUpload: function (files) { console.info('load')
+                    onImageUpload: function (files) {
                         var idx = 0;
                         for (var i = 0; i < files.length; i++) {
                             //첨부한 이미지를 에디터에 적용시키고 레이어를 닫기
                             $(this).summernote('editor.insertImage', "<c:url value='/resources/images/starrate.png'/>", function ($image) {
-                                $image.attr("data-src", "");
-                                $image.attr("alt", files[idx].name);
+                            	var fileName = files[idx].name;
+                            	$image.attr("data-src", "");
+                                $image.attr("alt", );
                                 
                                 var formData = new FormData();
                                 formData.append('file', files[idx]);
@@ -56,6 +57,7 @@
                                         //el.parent().css("text-align", "center")
                                         $image.attr("src", data);
                                         $image.attr("data-src", data);
+                                        $("#uploadFiles").append('<input type="hidden" value="'+data+'&&fileName='+fileName+'" name="fileInfo"/>');
                                     },
                                     error: function () {
                                         alert('파일 업로드에 실패하였습니다.');
@@ -122,5 +124,8 @@
 </head>
 <body>
 <textarea id="summernote" name="contents"></textarea>
+
+<form id="uploadFiles"></form>
+
 </body>
 </html>
