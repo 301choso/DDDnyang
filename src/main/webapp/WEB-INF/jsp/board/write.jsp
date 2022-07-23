@@ -35,7 +35,7 @@ function doAction(url, message) {
         data: formData,
         success: function (data) {
         	alert('게시물을 '+ message +'하였습니다.');
-        	location.href="${contextPath}/board/goBoard.do";
+        	//location.href="${contextPath}/board/goBoard.do";
         },
         error: function () {
             alert('게시물 '+ message +'에 실패하였습니다.');

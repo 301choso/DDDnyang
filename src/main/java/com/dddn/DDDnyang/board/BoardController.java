@@ -1,5 +1,6 @@
 package com.dddn.DDDnyang.board;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +12,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.dddn.DDDnyang.image.ImageService;
+import com.dddn.DDDnyang.image.ImageVO;
 
 @Controller("boardController")
 @RequestMapping(value = "/board")
@@ -19,6 +24,9 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private ImageService imageService;
 	
 	//리스트
 	@RequestMapping(value = "/goBoard.do", method=RequestMethod.GET)	
@@ -75,6 +83,7 @@ public class BoardController {
 		 */
 		boardVO.setMember_num(1);
 		int result = boardService.insertBoard(boardVO);
+		
 		mav.addObject("result", result);
 		mav.setViewName("board/list");
 		

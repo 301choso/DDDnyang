@@ -11,12 +11,13 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDao boardDao;
 	
 	@Override
-	public List<BoardVO> listBoard(BoardVO boardVO) {		
+	public List<BoardVO> listBoard(BoardVO boardVO) {	
 		return boardDao.listBoard(boardVO);
 	}
 
 	@Override
 	public BoardVO boardDetail(int board_id) {
+		boardDao.doBoardViewCntUpdate(board_id);
 		return boardDao.boardDetail(board_id);
 	}
 

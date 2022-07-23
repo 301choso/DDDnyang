@@ -31,5 +31,9 @@ public class BoardDao {
 	public int deleteBoard(BoardVO boardVO) throws DataAccessException {
 		return sqlSession.update("board.deleteBoard", boardVO);
 	}
+
+	public void doBoardViewCntUpdate(int board_id) {
+		sqlSession.update("board.doBoardViewCntUpdate", board_id);
+	}
 	
 }
