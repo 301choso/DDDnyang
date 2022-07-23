@@ -15,6 +15,10 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+	setTimeout(() => {
+		$('select[name=dataTable_length]').addClass("text-sm w-24");
+	}, 300);
+
 	$("#dataTable").DataTable({
 		paging: true,
 	    info:true,
@@ -25,14 +29,11 @@ $(document).ready(function(){
 	    serverSide: false,
 	    searching: true,
 	    autoWidth:true,
-	    stateSaveParams : function (settings, data) {
-			data.search.page = "1";
-			data.search.search = "";
-			data.search.start = 0;
-			data.start = 0;
-		},
+	    lengthMenu: [ 10, 20, 30, 40, 50 ],
+	    displayLength: 20,
+	    order:[[4, 'desc']],
     	ajax: {
-    		  url:"<%=contextPath%>/memberA/createTable",
+    		  url:"<%=contextPath%>/admin/createTable",
     		  type:"POST",
     		  data : { params : "" },
     		},  		 	 
@@ -51,6 +52,12 @@ $(document).ready(function(){
 		  		}},
 		  		{data : 'MEMBER_YN', render:function(data, type, row){
 		  			return data=='Y'? "사용":"휴면계정"
+		  		}},
+		  		{data : '', render:function(data, type, row){
+		  			var button = '<a href="<%=contextPath%>/admin/member/modifyPage?member_id='+row.MEMBER_ID+'">'
+		  			+'<input type="button" value="수정" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">'
+		  			+'</a>';
+		  			return button;
 		  		}}
 		  	]
 	})
@@ -61,7 +68,7 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-<section style="padding-top: 90px;">
+<section>
 <table id="dataTable">
 	<thead>
 		<tr>
@@ -71,6 +78,7 @@ $(document).ready(function(){
 			<th>이름</th>
 			<th>가입날짜</th>
 			<th>사용여부</th>
+			<th>수정</th>
 		</tr>	
 	</thead>
 </table>

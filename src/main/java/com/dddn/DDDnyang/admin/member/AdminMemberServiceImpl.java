@@ -1,4 +1,4 @@
-package com.dddn.DDDnyang.admin;
+package com.dddn.DDDnyang.admin.member;
 
 import java.util.List;
 import java.util.Map;
@@ -17,6 +17,16 @@ public class AdminMemberServiceImpl implements AdminmemberService {
 	@Override
 	public List<Map<String, Object>> selectMember(Map<String, Object> parameterMap) {
 		return memberDao.selectMember(parameterMap);
+	}
+
+	@Override
+	public Map<String, Object> selectInfo(String member_id) {
+		return memberDao.selectInfo(member_id);
+	}
+
+	@Override
+	public void updateInfo(Map<String, String> parameterMap) {
+		memberDao.updateInfo(parameterMap);		
 	}
 	
 

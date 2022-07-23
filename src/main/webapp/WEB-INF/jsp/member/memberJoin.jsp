@@ -88,17 +88,17 @@
 	  전화번호
 	  </label>
 	  <div class="flex flex-wrap -mx-3 mb-6">
-	    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+	    <div class="md:w-1/3 px-3 mb-6 md:mb-0">
 	      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="member_phone01" id="member_phone01" type="text"
 	      pattern="[0-9]{3}" required="required">
 	    </div>
-	    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+	    <div class="md:w-1/3 px-3 mb-6 md:mb-0">
 	      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="member_phone02" id="member_phone02" type="text"
-	      pattern="[0-9]{3}" required="required">
+	      pattern="[0-9]{3,4}" required="required">
 	    </div>
-	    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+	    <div class="md:w-1/3 px-3 mb-6 md:mb-0">
 	      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="member_phone03" id="member_phone03" type="text"
-	      pattern="[0-9]{3}" required="required">	      
+	      pattern="[0-9]{3,4}" required="required">	      
 	    </div>
 	  </div>
   
@@ -106,17 +106,17 @@
 	  E-mail
 	  </label>
 	  <div class="flex flex-wrap -mx-3 mb-6">
-	    <div class="w-full md:w-1/2 px-3">
+	    <div class="md:w-1/2 px-3">
 	      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="member_mail01" id="member_mail01" type="text"
-	      pattern="[A-Za-z0-9]{5}" required>
+	      pattern="[A-Za-z0-9]{5,15}" required>
 	    </div>
-	    <div class="w-full md:w-1/2 px-3">
+	    <div class="md:w-1/2 px-3">
 	      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="member_mail02" id="member_mail02" type="text"
 	      required>
 	    </div>
 	  </div>
 	  <div class="float-right">
-	  	<button type="submit" class="bg-teal-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">가입하기</button>
+	  	<button type="submit" class="bg-gray-800 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-700">가입하기</button>
 	  </div>
 	</form>
 </div>

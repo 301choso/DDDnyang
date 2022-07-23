@@ -15,11 +15,16 @@
   integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
   crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 </head>
-<tiles:insertAttribute name="header"/>
+		
 <body>
-<div id="page">
-<tiles:insertAttribute name="body" ignore="true"/>
+<div class="flex space-x-4 space-x-reverse h-screen">
+	<tiles:insertAttribute name="sidebar"/>
+	<div id="page" class="w-5/6">
+		<tiles:insertAttribute name="body" ignore="true"/>
+	</div>
 </div>
 <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script><!-- tailwind -->
 </body>
