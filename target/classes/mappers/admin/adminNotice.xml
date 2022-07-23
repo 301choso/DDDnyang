@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="adminnotice">
+<insert id="insertNotice" parameterType="java.util.Map">
+	INSERT INTO NOTICE(
+		NOTICE_TITLE,
+		NOTICE_CONTENT,
+		NOTICE_DATE,
+		NOTICE_VIEWS,
+		NOTICE_IMAGE
+	) VALUES (
+		#{notice_title},
+		#{notice_contents},
+		NOW(),
+		0,
+		#{image_path}
+	)
+
+</insert>
+
+<select id="noticeList" resultType="java.util.Map">
+	SELECT 
+		NOTICE_ID,
+		NOTICE_TITLE,
+		NOTICE_DATE,
+		NOTICE_VIEWS
+	FROM NOTICE 
+	ORDER BY NOTICE_ID DESC
+</select>
+</mapper>

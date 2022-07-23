@@ -18,7 +18,7 @@ aside {
         <div class="overflow-y-auto py-4 px-3 rounded dark:bg-gray-800 h-full">
            <ul class="space-y-2">
               <li>
-                 <a href="#" class="flex items-center p-2 text-white font-normal text-white rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900">
+                 <a href="<%=contextPath%>/admin/notice/noticeList" class="flex items-center p-2 text-white font-normal text-white rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900">
                     <span class="ml-3 whitespace-nowrap">공지사항</span>
                  </a>
               </li>

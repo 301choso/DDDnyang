@@ -28,7 +28,7 @@
 	SELECT COUNT(MEMBER_ID) FROM MEMBER WHERE MEMBER_ID = #{member_id}
 </select>
 
-<select id="checkLogin" resultType="java.util.Map" parameterType="java.util.Map">
+<select id="checkLogin"  parameterType="java.util.Map" resultType="java.util.Map">
 	SELECT * FROM MEMBER
 	WHERE MEMBER_ID = #{user_id} AND MEMBER_PW = #{user_pw}
 			AND MEMBER_YN = "Y"
