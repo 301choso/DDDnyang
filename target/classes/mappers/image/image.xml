@@ -5,9 +5,32 @@
 	
 <mapper namespace="image">
 <insert id="insertImage" parameterType="imageVO">
-	insert into image(image_date,image_file_name,board_id,member_num) 
-	value(NOW(),#{image_file_name},#{board_id},#{member_num})
+	<selectKey keyProperty="board_id" resultType="java.lang.Integer" order="BEFORE">
+		SELECT IFNULL(MAX(board_id),1) AS board_id FROM BOARD
+	</selectKey>
+	INSERT INTO IMAGE(IMAGE_SORT
+					, IMAGE_FILE_ORIGINAL_NAME
+					, IMAGE_FILE_NAME
+					, IMAGE_DATE
+					, BOARD_ID
+					, MEMBER_NUM) 
+				VALUE(#{image_sort}
+					, #{image_file_original_name}
+					, #{image_file_name}
+					, NOW()
+					, #{board_id}
+					, #{member_num})
 </insert>	
 
-
+<select id="getImageInfo" resultType="imageVO">
+	SELECT * FROM IMAGE 
+	WHERE 1=1
+	<if test="image_file_original_name != null">
+		AND IMAGE_FILE_ORIGINAL_NAME = #{image_file_original_name} 
+	</if>
+	<if test="image_sort != null">
+		AND IMAGE_SORT = #{image_sort}
+	</if>
+	LIMIT 6
+</select>
 </mapper>

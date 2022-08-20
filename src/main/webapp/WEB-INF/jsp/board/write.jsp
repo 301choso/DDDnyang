@@ -28,6 +28,7 @@ function boardAction(action) {
 }
 function doAction(url, message) {
 	let formData = $('#boardForm').serialize();
+	//게시글
 	$.ajax({
 		type: "post",
         url: url,
@@ -35,12 +36,16 @@ function doAction(url, message) {
         data: formData,
         success: function (data) {
         	alert('게시물을 '+ message +'하였습니다.');
-        	//location.href="${contextPath}/board/goBoard.do";
+        	location.href="${contextPath}/board/goBoard.do";
         },
         error: function () {
             alert('게시물 '+ message +'에 실패하였습니다.');
         }
 	});  
+	
+	//첨부파일
+	$("#editor").get(0).contentWindow.insertFileInfo();
+	 
 }
 </script>
 
@@ -76,10 +81,12 @@ function doAction(url, message) {
 			    </button>
 			</c:otherwise>
 		</c:choose>
-		<a type="submit" onclick="boardAction('delete');"
-		class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
-		    삭제
-	    </a>
+		<%-- <c:if test="${boardInfo.member_id eq member_num}"> --%>
+			<a type="submit" onclick="boardAction('delete');"
+			class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+			    삭제
+		    </a>
+	    <%-- </c:if> --%>
     </form>
 </div>
 <div id="hiddenContents" style="display:none;"><c:out value="${boardInfo.board_content}" escapeXml="false"/></div>

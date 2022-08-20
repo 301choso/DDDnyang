@@ -1,21 +1,20 @@
 package com.dddn.DDDnyang.image;
 
 import java.io.File;
-import java.io.IOException;
-import java.text.DecimalFormat;
+import java.io.FileInputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,8 +31,8 @@ public class ImageController {
 	private ImageService imageService;
 
 	private static final String CURR_IMAGE_REPO_PATH = "C:\\upload"; // 상대경로로 바꿀것
-	// 첨부파일 업로드
-
+	
+	// 이미지 업로드
 	@RequestMapping(value = "/editor/upload.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String summernoteUpload(MultipartHttpServletRequest multipartRequest) throws Exception {
@@ -43,13 +42,13 @@ public class ImageController {
 			Iterator<String> fileNames = multipartRequest.getFileNames();
 
 			while (fileNames.hasNext()) {
-				ImageVO imageFileVO = new ImageVO();
+				ImageVO imageVO = new ImageVO();
 				String fileName = fileNames.next();
-				// ImageVO.setImage_file_sort(fileName);
 				MultipartFile mFile = multipartRequest.getFile(fileName);
 				originalFileName = mFile.getOriginalFilename();
-				imageFileVO.setImage_file_name(originalFileName);
-				fileList.add(imageFileVO);
+				imageVO.setImage_file_name(originalFileName);
+				
+				fileList.add(imageVO);
 
 				File file = new File(CURR_IMAGE_REPO_PATH + "\\" + fileName);
 				if (mFile.getSize() != 0) { // File Null Check
@@ -67,33 +66,41 @@ public class ImageController {
 		}
 		return "http://localhost:8282/img/" + "temp" + "\\" + originalFileName;
 	}
-
-	/*
-	 * private void insertFiles() {
-	 * 
-	 * if(imageVO.getFileInfo() != null) {
-	 * 
-	 * ImageVO imageVO = new ImageVO(); for(String files :
-	 * boardVO.getFileInfo().split(",")) {
-	 * 
-	 * String[] param = files.split("&&fileName="); imageVO.setBoard_id(1);//
-	 * Integer.parseInt(request.getParameter("board_id"))
-	 * imageVO.setImage_file_name(param[1]); imageVO.setMember_num(1);
-	 * imageService.insertImage(imageVO);
-	 * System.out.println("@@@@@@@@@@@@path : "+param[0]); }
-	 * 
-	 * }
-	 * 
-	 * 
-	 * }
-	 */
-	private void deleteFile(String fileName) {
-		File file = new File(CURR_IMAGE_REPO_PATH + "\\" + fileName);
+	
+	// 이미지 DB 저장
+	@RequestMapping(value = "/insertFileInfo.do", method = RequestMethod.POST)
+	@ResponseBody
+	public void insertFileInfo(String fileInfo, HttpServletRequest request) throws Exception {
 		try {
-			file.delete();
-		} catch (Exception e) {
+			if(fileInfo != null) {
+				HttpSession session = request.getSession();
+				int member_num = (int) session.getAttribute("member_num");
+				
+				String[] filesInfo = fileInfo.split(",");
+				 
+				for(String info : filesInfo) {
+				    String[] data = info.split("&&");
+					ImageVO imageVO = new ImageVO();
+
+					imageVO.setImage_sort("board");
+					imageVO.setImage_file_original_name(data[1]);
+					UUID uuid = UUID.randomUUID();
+					imageVO.setImage_file_name(uuid.toString());
+					imageVO.setMember_num(member_num);
+					imageService.insertImage(imageVO);
+				}
+		  
+			}	
+		}catch(Exception e) {
 			e.printStackTrace();
 		}
-	}
+		  
+	 }
+	
+		/*
+		 * private void deleteFile(String fileName) { File file = new
+		 * File(CURR_IMAGE_REPO_PATH + "\\" + fileName); try { file.delete(); } catch
+		 * (Exception e) { e.printStackTrace(); } }
+		 */
 
 }

@@ -1,5 +1,7 @@
 package com.dddn.DDDnyang.image;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,11 @@ public class ImageServiceImpl implements ImageService {
 	@Override
 	public void insertImage(ImageVO imageVO) {
 		imageDao.insertImage(imageVO);
+	}
+
+	@Override
+	public List<ImageVO> getImageInfo(ImageVO imageVO) {
+		return imageDao.getImageInfo(imageVO);
 	}
 	
 	

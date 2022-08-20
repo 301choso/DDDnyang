@@ -21,9 +21,13 @@
 	<!-- swiper -->
 	<div class="swiper">
 	  <div class="swiper-wrapper">
-	    <div class="swiper-slide">Slide 1</div>
-	    <div class="swiper-slide">Slide 2</div>
-	    <div class="swiper-slide">Slide 3</div>
+		  <c:if test = "${not empty imageList}">
+		  	<c:forEach items="${imageList}" var="img">
+		  		<div class="swiper-slide">
+		  			<img src="<c:url value='http://localhost:8282/img/temp/${img.image_file_original_name}'/>">
+		  		</div>
+		  	</c:forEach>
+		  </c:if>
 	  </div>
 	  
 	  <div class="swiper-pagination"></div>
@@ -147,10 +151,11 @@ const swiper = new Swiper('.swiper', {
 	  
 	  autoplay: {
 		delay: 3000,
-	  }
+	  },
 	  
 	  mousewheel: true,
-      keyboard: true
+      keyboard: true,
+      disableOnInteraction: false,
 	});
 </script>
 </body>

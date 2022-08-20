@@ -40,11 +40,12 @@ public class BoardController {
 	} 
 	//단일 게시물
 	@RequestMapping(value = "/goView.do", method=RequestMethod.GET)	
-	public ModelAndView goView(@RequestParam("board_id") int board_id) throws Exception {
+	public ModelAndView goView(@RequestParam("board_id") int board_id, HttpServletRequest request) throws Exception {
 		ModelAndView mav = new ModelAndView();
 
 		BoardVO boardInfo = boardService.boardDetail(board_id);
 		mav.addObject("boardInfo", boardInfo);
+		mav.addObject("member_num",getMemberNum(request));
 		mav.setViewName("board/view");
 		
 		return mav;
@@ -77,11 +78,8 @@ public class BoardController {
 	@RequestMapping(value = "/insertBoard.do", method = RequestMethod.POST)
 	public ModelAndView insertBoard(HttpServletRequest request, @ModelAttribute BoardVO boardVO) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		/*
-		 * HttpSession session = request.getSession();
-		 * session.getAttribute("member_num");
-		 */
-		boardVO.setMember_num(1);
+			
+		boardVO.setMember_num(getMemberNum(request));
 		int result = boardService.insertBoard(boardVO);
 		
 		mav.addObject("result", result);
@@ -95,12 +93,9 @@ public class BoardController {
 	public ModelAndView updateBoard(HttpServletRequest request, @ModelAttribute BoardVO boardVO) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		
-		/*
-		 * HttpSession session = request.getSession();
-		 * session.getAttribute("member_num");
-		 */
-		boardVO.setMember_num(1);
+		boardVO.setMember_num(getMemberNum(request));
 		int result = boardService.updateBoard(boardVO);
+		
 		mav.addObject("result", result);
 		mav.setViewName("board/list");
 		return mav;
@@ -115,5 +110,10 @@ public class BoardController {
 		mav.addObject("result", result);
 		mav.setViewName("board/list");
 		return mav;
+	}
+	
+	private int getMemberNum(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		return (int) session.getAttribute("member_num");
 	}
 }

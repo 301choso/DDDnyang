@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
 <!DOCTYPE html>
@@ -37,7 +38,7 @@
                         for (var i = 0; i < files.length; i++) {
                             //첨부한 이미지를 에디터에 적용시키고 레이어를 닫기
                             $(this).summernote('editor.insertImage', "<c:url value='/resources/images/starrate.png'/>", function ($image) {
-                            	var fileName = files[idx].name;
+                            	var fileOriginalNm = files[idx].name;
                             	$image.attr("data-src", "");
                                 $image.attr("alt", );
                                 
@@ -57,7 +58,7 @@
                                         //el.parent().css("text-align", "center")
                                         $image.attr("src", data);
                                         $image.attr("data-src", data);
-                                        $("#uploadFiles").append('<input type="hidden" value="'+data+'&&fileName='+fileName+'" name="fileInfo"/>');
+                                        $("#uploadFiles").append('<input type="hidden" value="'+data+'&&'+fileOriginalNm+'" name="fileInfo"/>');
                                     },
                                     error: function () {
                                         alert('파일 업로드에 실패하였습니다.');
@@ -84,30 +85,6 @@
             $('.note-statusbar').hide();
         });
 
-         function sendFile(file, el) {
-            var formData = new FormData();
-            formData.append('file', file);
-            $.ajax({
-                type: "post",
-                enctype: "multipart/form-data",
-                url: "<c:url value='/image/editor/upload.do'/>",
-                encrypt: "multipart/form-data",
-                contentType: false,
-                processData: false,
-                cache: false,
-                data: formData,
-                success: function (data) {
-                    //부모노드
-                    //el.parent().css("text-align", "center")
-                    el.attr("src", data);
-                    el.attr("data-src", data);
-                },
-                error: function () {
-                    alert('파일 업로드에 실패하였습니다.');
-                }
-            });
-        } 
-
         var snContents = function () {
             return $("#summernote").summernote("code");
         }
@@ -120,12 +97,17 @@
         function setDefaultFontName() {
             $("#summernote").summernote("fontName", '나눔바른고딕');
         }
+        var insertFileInfo = function () {
+        	let formData = document.uploadFiles;
+        	formData.action = "${contextPath}/image/insertFileInfo.do";
+        	formData.submit();
+        }
     </script>
 </head>
 <body>
 <textarea id="summernote" name="contents"></textarea>
 
-<form id="uploadFiles"></form>
+<form:form name="uploadFiles" id="uploadFiles" method="post" enctype="multipart/form-data" ></form:form>
 
 </body>
 </html>

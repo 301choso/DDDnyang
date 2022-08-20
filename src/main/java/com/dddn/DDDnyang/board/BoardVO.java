@@ -11,7 +11,15 @@ public class BoardVO {
 	private int board_like_it;
 	private String board_category;
 	private int member_num;
-	
+	private String fileInfo;
+	public String getFileInfo() {
+		return fileInfo;
+	}
+
+	public void setFileInfo(String fileInfo) {
+		this.fileInfo = fileInfo;
+	}
+
 	public int getBoard_id() {
 		return board_id;
 	}
