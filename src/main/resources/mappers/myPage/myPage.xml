@@ -18,5 +18,16 @@
 	ORDER BY BOARD_DATE DESC
 </select>	
 
+<insert id="doMarkBoard">
+	INSERT INTO MYBOOKMARK(
+			MEMBER_NUM,
+			BOARD_ID,
+			REG_DATE
+		) VALUES (
+			#{member_num},
+			#{board_id},
+			NOW()
+		)
+</insert>
 
 </mapper>

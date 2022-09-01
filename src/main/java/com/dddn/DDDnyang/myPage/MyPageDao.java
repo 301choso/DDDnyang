@@ -17,6 +17,10 @@ public class MyPageDao {
 	public List<BoardVO> getMyPost(int member_num) {
 		return sqlSession.selectList("myPage.getMyPost", member_num);
 	}
+
+	public int doMarkBoard(MyPageBookMarkVO myPageBookMarkVO) {
+		return sqlSession.insert("myPage.doMarkBoard", myPageBookMarkVO);
+	}
 	
 	
 }

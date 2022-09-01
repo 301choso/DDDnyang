@@ -63,13 +63,14 @@ public class BoardController {
 	
 	//수정화면 이동
 	@RequestMapping(value = "/goUpdateDetail.do", method = RequestMethod.GET)
-	public ModelAndView goUpdateDetail(@RequestParam("board_id") int board_id) throws Exception {
+	public ModelAndView goUpdateDetail(@RequestParam("board_id") int board_id, HttpServletRequest request) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		
 		BoardVO boardInfo = boardService.boardDetail(board_id);
 		
 		mav.addObject("isInsUpd", "U");
 		mav.addObject("boardInfo", boardInfo);
+		mav.addObject("member_num",getMemberNum(request));
 		mav.setViewName("board/write");
 		return mav;
 	}
@@ -114,6 +115,7 @@ public class BoardController {
 	
 	private int getMemberNum(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		return (int) session.getAttribute("member_num");
+		int memberNum = (session.getAttribute("member_num") == null) ? 0 : (int) session.getAttribute("member_num");
+		return  memberNum;
 	}
 }

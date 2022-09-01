@@ -80,7 +80,10 @@ section {
         <li><a href="#" class="nav_about "><i class="fa-solid fa-photo-film"></i></a></li>
         <li><a href="#" class="nav_project"><i class="fa-solid fa-pen-to-square"></i></a></li>
         <li><a href="#" class="nav_project"><i class="fa-solid fa-bullhorn"></i></a></li>
-        <li><a href="<%=contextPath%>/myPage/goMyPage.do" class="nav_contact"><i class="fa-solid fa-user-group"></i></a></li>
+        <c:set value="${sessionScope.member_num}" var="memberNum"/>
+        <c:if test="${not empty member_num}">
+        <li><a href="<%=contextPath%>/myPage/goMyPage.do?member_num=${memberNum}" class="nav_contact"><i class="fa-solid fa-user-group"></i></a></li>
+        </c:if>
       </ul>
 	<c:choose>
 		<c:when test="${logOn==true}">

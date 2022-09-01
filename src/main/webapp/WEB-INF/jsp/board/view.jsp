@@ -7,7 +7,24 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.4/dist/flowbite.min.css" />
-
+<script>
+function doMarkBoard() {
+	$.ajax({
+		type: "GET",
+        url: "${contextPath}/myPage/doMarkBoard.do",
+        data: {
+        	"board_id" : ${boardInfo.board_id}
+        },
+        success: function (data) {
+        	alert('관심목록 추가에 '+ message +'되었습니다.');
+        },
+        error: function () {
+            alert('게시물 '+ message +'에 실패하였습니다.');
+        }
+	});  
+	 
+}
+</script>
 </head>
 <body>
 <div class="pt-10"></div>	
@@ -22,10 +39,20 @@
     <div class="py-8">
     	${boardInfo.board_content}
     </div>  
- 
+    <c:set value="${sessionScope.member_num}" var="memberNum"/>
+ 	<c:if test="${member_num ne 0 && memberNum eq member_num}">
     <a type="submit" href="${contextPath}/board/goUpdateDetail.do?board_id=${boardInfo.board_id}"
 	class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
         수정
+    </a>
+    </c:if>
+    <a type="submit" href="${contextPath}/board/goBoard.do"
+	class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+        목록
+    </a>
+    <a type="submit" onclick="javascript:doMarkBoard()"
+	class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+        관심글 등록
     </a>
 </div>
 </body>

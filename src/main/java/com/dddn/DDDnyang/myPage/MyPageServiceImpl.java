@@ -17,6 +17,11 @@ public class MyPageServiceImpl implements MyPageService {
 	public List<BoardVO> getMyPost(int member_num) throws Exception {
 		return myPageDao.getMyPost(member_num);
 	}
+
+	@Override
+	public int doMarkBoard(MyPageBookMarkVO myPageBookMarkVO) throws Exception {
+		return myPageDao.doMarkBoard(myPageBookMarkVO);
+	}
 	
 	
 }

@@ -8,4 +8,6 @@ public interface MyPageService {
 
 	List<BoardVO> getMyPost(int member_num) throws Exception;
 
+	int doMarkBoard(MyPageBookMarkVO myPageBookMarkVO) throws Exception;
+
 }
