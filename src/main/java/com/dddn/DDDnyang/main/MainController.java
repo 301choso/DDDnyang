@@ -22,7 +22,7 @@ public class MainController {
 	 
 	@RequestMapping(value="/")
 	public String mainPage() {
-		return "main/main";
+		return "redirect:main/main";
 	}
 	
 	@RequestMapping(value = "main/main", method = RequestMethod.GET)

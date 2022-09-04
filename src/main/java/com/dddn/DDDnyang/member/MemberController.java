@@ -128,7 +128,7 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		session.removeAttribute("logOn");
 		session.removeAttribute("login_id");
-		
+		session.removeAttribute("member_num");
 		return "main/main";
 	}
 	
