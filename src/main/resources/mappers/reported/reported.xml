@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="report">
+
+	<insert id="insertReport" parameterType="java.util.Map">
+		INSERT INTO REPORTED_CONTENT (
+			ORIGINAL_SEQ,
+			REPORTED_SORT,
+			REPORTED_ID,
+			REPORTED_DATE
+		) VALUES (
+			#{original_seq},
+			#{reported_sort},
+			#{reported_id},
+			NOW()
+		)
+	</insert>
+
+	<select id="reportedList" resultType="java.util.Map">
+		SELECT A.* FROM (
+			SELECT 
+				A.REPORT_SEQ,
+				A.ORIGINAL_SEQ,
+				B.BOARD_TITLE,
+				B.BOARD_VIEWS,
+				COUNT(REPORT_SEQ) AS CNT
+			FROM REPORTED_CONTENT A, BOARD B
+			WHERE A.ORIGINAL_SEQ = B.BOARD_ID
+			GROUP BY A.ORIGINAL_SEQ
+		) A WHERE 1=1
+		<!--if test="count>0">
+		AND A.CNT > #{count}
+		</if-->
+		 ORDER BY A.CNT DESC
+	</select>
+</mapper>
