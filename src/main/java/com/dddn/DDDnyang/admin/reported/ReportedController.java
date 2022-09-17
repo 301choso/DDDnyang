@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.dddn.DDDnyang.board.BoardVO;
 import com.google.gson.Gson;
 
 @Controller("reportedController")
@@ -62,5 +65,17 @@ public class ReportedController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@RequestMapping(value="/detail", method = RequestMethod.GET)
+	public ModelAndView detailView(@RequestParam("board_id") int board_id) {
+		ModelAndView mv = new ModelAndView();
+		BoardVO baord = reportedService.reportedDetail(board_id);
+		mv.addObject("board", baord);
+		
+		List<Map<String, Object>> reportedCount = reportedService.reportedCount(board_id);
+		mv.addObject("reported", reportedCount);
+		mv.setViewName("admin/reported/reportedDetail");
+		return mv;
 	}
 }

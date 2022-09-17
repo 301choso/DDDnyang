@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dddn.DDDnyang.board.BoardVO;
+
 @Service("reportedService")
 public class ReportedServiceImpl implements ReportedService {
 	
@@ -20,6 +22,16 @@ public class ReportedServiceImpl implements ReportedService {
 	@Override
 	public List<Map<String, Object>> reportList(Map<String, Object> parameterMap) {
 		return reportedDao.reportList(parameterMap);
+	}
+
+	@Override
+	public BoardVO reportedDetail(int board_id) {
+		return reportedDao.reportDetail(board_id);
+	}
+
+	@Override
+	public List<Map<String, Object>> reportedCount(int board_id) {
+		return reportedDao.reportedCount(board_id);
 	}
 
 }

@@ -27,9 +27,8 @@ function doMarkBoard() {
 
 function reportContent(){	//신고버튼 기능함수
     var login_num = "<%=String.valueOf(request.getAttribute("member_num"))%>";
-    if(login_num=='null'){
+    if(login_num=='null' || login_num == 0){
         noty_control('information', '로그인 후 가능합니다.', '3000');
-        console.log(login_num)
         return;
     }
 
@@ -42,7 +41,13 @@ function reportContent(){	//신고버튼 기능함수
             "reported_id" : login_num
         },
         success : function(cnt){
-            noty_control('success','신고가 접수되었습니다','3000');
+        	console.log(cnt)
+        	if(cnt==1){
+        		 noty_control('success','신고가 접수되었습니다','3000');
+        	} else {
+        		noty_control('information', '신고는 한 게시글당 한번만 가능합니다.', '3000');
+        	}
+           
         },
         error : function(){
             noty_control('error','신고접수에 실패했습니다. \n다시 시도해주세요','3000');

@@ -6,17 +6,23 @@
 <mapper namespace="report">
 
 	<insert id="insertReport" parameterType="java.util.Map">
-		INSERT INTO REPORTED_CONTENT (
+		INSERT INTO REPORTED_CONTENT(
 			ORIGINAL_SEQ,
 			REPORTED_SORT,
 			REPORTED_ID,
 			REPORTED_DATE
-		) VALUES (
+		) SELECT 
 			#{original_seq},
 			#{reported_sort},
 			#{reported_id},
 			NOW()
-		)
+		FROM DUAL
+		WHERE NOT EXISTS (
+			SELECT REPORT_SEQ
+			FROM REPORTED_CONTENT
+			WHERE ORIGINAL_SEQ = #{original_seq}
+			AND REPORTED_ID = #{reported_id}
+		) LIMIT 1
 	</insert>
 
 	<select id="reportedList" resultType="java.util.Map">
@@ -36,4 +42,41 @@
 		</if-->
 		 ORDER BY A.CNT DESC
 	</select>
+	
+	<select id="reportedDetail" resultType="boardVO">
+		SELECT BOARD_ID
+			, BOARD_TITLE
+			, BOARD_CONTENT
+			, BOARD_DATE
+			, BOARD_VIEWS
+			, BOARD_LIKE_IT
+			, BOARD_CATEGORY
+			, MEMBER_NUM
+		FROM
+		BOARD 
+		WHERE
+			BOARD_ID = #{board_id}
+	</select>
+	
+	<select id="reportedCount" resultType="java.util.Map">
+		SELECT 
+			A.CATEGORY_NUM,
+			A.CATEGORY_DES, 
+			COALESCE(B.CNT,'0') AS CNT
+		FROM REPORTED_CATEGORY A
+		LEFT OUTER JOIN (
+			SELECT 
+				REPORTED_SORT,
+				COUNT(REPORTED_SORT) AS CNT
+			FROM REPORTED_CONTENT
+			WHERE ORIGINAL_SEQ = #{board_id}
+			GROUP BY REPORTED_SORT) B
+			ON A.CATEGORY_NUM = B.REPORTED_SORT
+	</select>
+	
+	<update id="updateShowYn">
+		UPDATE BOARD SET
+			SHOW_YN = #{show_yn}
+		WHERE BOARD_ID = #{board_id}
+	</update>
 </mapper>

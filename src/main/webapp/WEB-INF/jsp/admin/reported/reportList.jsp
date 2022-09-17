@@ -42,8 +42,9 @@ function dataTable(){
     		columns: [
 		  		{ data: 'ORIGINAL_SEQ'},
 		  		{ data: 'BOARD_TITLE', render:function(data, type, row){
+		  			console.log(row)
 		  			var title = '';
-	  				title = '<a href="">';
+	  				title = '<a href="<%=contextPath%>/report/detail?board_id='+row.ORIGINAL_SEQ+'">';
 	  				title += data
 	  				title += '</a>';
 	  				return title;
