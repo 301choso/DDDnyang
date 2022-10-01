@@ -47,10 +47,7 @@ public class ReportedController {
 	}
 	
 	@RequestMapping(value="createTable")
-	public @ResponseBody void createTable(HttpServletRequest request, HttpServletResponse response){
-		
-		Map<String, Object> parameterMap = new HashMap<String, Object>();
-
+	public @ResponseBody void createTable(@RequestParam Map<String, Object> parameterMap, HttpServletResponse response){
 		PrintWriter out;
 		Map<String, Object> jsonMap = new HashMap<String, Object>();
 		try {
@@ -59,7 +56,6 @@ public class ReportedController {
 			response.setCharacterEncoding("UTF-8");
 			ArrayList<Map<String, Object>> data = (ArrayList<Map<String, Object>>) reportedService.reportList(parameterMap);
 			jsonMap.put("data", data);
-			
 			Gson gson = new Gson();
 			out.print(gson.toJson(jsonMap));
 		} catch (IOException e) {
@@ -77,5 +73,18 @@ public class ReportedController {
 		mv.addObject("reported", reportedCount);
 		mv.setViewName("admin/reported/reportedDetail");
 		return mv;
+	}
+	
+	@RequestMapping(value="/contentBlock")
+	public @ResponseBody int blockContent(@RequestParam Map<String, Object> map) {
+		int cnt = 0;
+		try {
+			cnt = reportedService.blockContent(map);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return cnt;
 	}
 }

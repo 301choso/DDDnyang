@@ -12,8 +12,18 @@ public class BoardVO {
 	private String board_category;
 	private int member_num;
 	private String fileInfo;
+	private String show_yn;
+	
 	public String getFileInfo() {
 		return fileInfo;
+	}
+
+	public String getShow_yn() {
+		return show_yn;
+	}
+
+	public void setShow_yn(String show_yn) {
+		this.show_yn = show_yn;
 	}
 
 	public void setFileInfo(String fileInfo) {

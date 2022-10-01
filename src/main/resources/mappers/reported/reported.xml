@@ -25,7 +25,7 @@
 		) LIMIT 1
 	</insert>
 
-	<select id="reportedList" resultType="java.util.Map">
+	<select id="reportedList" resultType="java.util.Map" parameterType="java.util.Map">
 		SELECT A.* FROM (
 			SELECT 
 				A.REPORT_SEQ,
@@ -37,9 +37,7 @@
 			WHERE A.ORIGINAL_SEQ = B.BOARD_ID
 			GROUP BY A.ORIGINAL_SEQ
 		) A WHERE 1=1
-		<!--if test="count>0">
-		AND A.CNT > #{count}
-		</if-->
+		AND A.CNT >= #{count}
 		 ORDER BY A.CNT DESC
 	</select>
 	
@@ -52,6 +50,7 @@
 			, BOARD_LIKE_IT
 			, BOARD_CATEGORY
 			, MEMBER_NUM
+			, SHOW_YN
 		FROM
 		BOARD 
 		WHERE
@@ -74,7 +73,7 @@
 			ON A.CATEGORY_NUM = B.REPORTED_SORT
 	</select>
 	
-	<update id="updateShowYn">
+	<update id="updateShowYn" parameterType="java.util.Map">
 		UPDATE BOARD SET
 			SHOW_YN = #{show_yn}
 		WHERE BOARD_ID = #{board_id}

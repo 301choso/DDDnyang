@@ -11,4 +11,5 @@ public interface ReportedService {
 	public List<Map<String, Object>> reportList(Map<String, Object> parameterMap);
 	public BoardVO reportedDetail(int board_id);
 	public List<Map<String, Object>> reportedCount(int board_id);
+	public int blockContent(Map<String, Object> map);
 }

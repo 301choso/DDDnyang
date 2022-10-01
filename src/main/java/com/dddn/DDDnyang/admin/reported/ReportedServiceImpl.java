@@ -34,4 +34,9 @@ public class ReportedServiceImpl implements ReportedService {
 		return reportedDao.reportedCount(board_id);
 	}
 
+	@Override
+	public int blockContent(Map<String, Object> map) {
+		return  reportedDao.blockContent(map);
+	}
+
 }

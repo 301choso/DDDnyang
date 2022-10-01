@@ -12,6 +12,7 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
 
 <script type="text/javascript">
+var table = null;
 $(document).ready(function(){
 	setTimeout(() => {
 		$('select[name=dataTable_length]').addClass("text-sm w-24");
@@ -21,7 +22,13 @@ $(document).ready(function(){
 });
 
 function dataTable(){
-	$("#dataTable").DataTable({
+	var reported_cnt= $('#reported_cnt').val() == ''? 0:$('#reported_cnt').val();
+	if(table){
+		table.destroy();
+		$('#dataTable').empty();
+	}
+	
+	table = $("#dataTable").DataTable({
 		paging: true,
 	    info:true,
 	    bPaginate: true,
@@ -36,13 +43,13 @@ function dataTable(){
     	ajax: {
     		  url:"<%=contextPath%>/report/createTable",
     		  type:"POST",
-    		  data : { "count" : "" },
+    		  data : { "count" : reported_cnt },
     		  contentType: "application/x-www-form-urlencoded; charset=UTF-8",
     		},  		 	 
     		columns: [
 		  		{ data: 'ORIGINAL_SEQ'},
 		  		{ data: 'BOARD_TITLE', render:function(data, type, row){
-		  			console.log(row)
+		  		//	console.log(row)
 		  			var title = '';
 	  				title = '<a href="<%=contextPath%>/report/detail?board_id='+row.ORIGINAL_SEQ+'">';
 	  				title += data
@@ -53,6 +60,7 @@ function dataTable(){
 		  		{data : 'CNT'}
 		  	]
 	});
+	
 }
 </script>
 </head>
@@ -62,6 +70,8 @@ function dataTable(){
 
 </div>
 <div>
+<input type="text" name="reported_cnt" id="reported_cnt">
+<button onclick="dataTable()">검색</button>
 	<table id="dataTable">
 		<thead>
 			<tr>

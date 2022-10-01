@@ -7,8 +7,43 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-$('#large-toggle')
+function blockBtn(board_id) {
+	console.log($('#large-toggle').is(':checked'));
+	var checked_yn = $('#large-toggle').is(':checked');
+	
+	var show_yn = '';
+	if(checked_yn){
+		show_yn = 'Y';
+	} else {
+		show_yn = 'N';
+	}
+	$.ajax({
+		url : '${contextPath}/report/contentBlock',
+		data : {
+			board_id : board_id,
+			show_yn : show_yn
+		}, 
+        success : function(cnt){
+        	console.log(cnt)
+        	if(cnt==1){
+        		if(checked_yn)
+        			noty_control('success','게시글 차단 완료','3000');
+        		else
+        			noty_control('success', '차단 해제 완료', '3000');
+        	} else {
+        		noty_control('information', '신고는 한 게시글당 한번만 가능합니다.', '3000');
+        	}
+           
+        },
+        error : function(){
+            noty_control('error','오류가 발생했습니다.','3000');
+        }
+	})
+}
+
 </script>
+<script src="${contextPath}/resources/noty/noty.js"></script><!-- noty 기능 -->
+<script src="${contextPath}/resources/noty/notypack.js"></script>
 </head>
 <body>
 <section>
@@ -24,14 +59,28 @@ $('#large-toggle')
 	    	${board.board_content}
 	    </div>  
 	</div>
-
+	<c:set var="show_yn" value="${board.show_yn}"/>
+	<c:choose>
+		<c:when test="${show_yn eq 'Y'}">
 	<div class="max-w-2xl mx-auto relative">
 		<label for="large-toggle" class="inline-flex relative items-center cursor-pointer">
-		  <input type="checkbox" value="" id="large-toggle" class="sr-only peer">
+		<input type="checkbox" id="large-toggle" class="sr-only peer" onclick="blockBtn(${board.board_id})" checked="checked">
 		  <div class="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
 		  <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">차단하기</span>
 		</label>
-	</div>
+	</div>		
+		</c:when>
+		<c:otherwise>
+	<div class="max-w-2xl mx-auto relative">
+		<label for="large-toggle" class="inline-flex relative items-center cursor-pointer">
+		<input type="checkbox" id="large-toggle" class="sr-only peer" onclick="blockBtn(${board.board_id})">
+		  <div class="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+		  <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">차단하기</span>
+		</label>
+	</div>		
+		</c:otherwise>
+	</c:choose>
+
     <div class="overflow-x-auto max-w-2xl mx-auto relative shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

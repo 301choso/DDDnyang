@@ -30,5 +30,9 @@ public class ReportedDao {
 	public List<Map<String, Object>> reportedCount(int board_id){
 		return sqlSession.selectList("report.reportedCount", board_id);
 	}
+	
+	public int blockContent(Map<String, Object> parameterMap) {
+		return sqlSession.update("report.updateShowYn", parameterMap);
+	}
 
 }
