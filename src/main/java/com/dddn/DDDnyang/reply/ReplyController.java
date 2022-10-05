@@ -34,7 +34,6 @@ public class ReplyController {
 		
 		List<ReplyVO> replyList = replyService.listReply(paramMap);
 		mav.addObject("replyList", replyList);
-		//mav.setViewName("board/list");
 		return replyList;
 	} 
 	
