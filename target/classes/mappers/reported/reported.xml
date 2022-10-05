@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="report">
+
+	<insert id="insertReport" parameterType="java.util.Map">
+		INSERT INTO REPORTED_CONTENT(
+			ORIGINAL_SEQ,
+			REPORTED_SORT,
+			REPORTED_ID,
+			REPORTED_DATE
+		) SELECT 
+			#{original_seq},
+			#{reported_sort},
+			#{reported_id},
+			NOW()
+		FROM DUAL
+		WHERE NOT EXISTS (
+			SELECT REPORT_SEQ
+			FROM REPORTED_CONTENT
+			WHERE ORIGINAL_SEQ = #{original_seq}
+			AND REPORTED_ID = #{reported_id}
+		) LIMIT 1
+	</insert>
+
+	<select id="reportedList" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT A.* FROM (
+			SELECT 
+				A.REPORT_SEQ,
+				A.ORIGINAL_SEQ,
+				B.BOARD_TITLE,
+				B.BOARD_VIEWS,
+				COUNT(REPORT_SEQ) AS CNT
+			FROM REPORTED_CONTENT A, BOARD B
+			WHERE A.ORIGINAL_SEQ = B.BOARD_ID
+			GROUP BY A.ORIGINAL_SEQ
+		) A WHERE 1=1
+		AND A.CNT >= #{count}
+		 ORDER BY A.CNT DESC
+	</select>
+	
+	<select id="reportedDetail" resultType="boardVO">
+		SELECT BOARD_ID
+			, BOARD_TITLE
+			, BOARD_CONTENT
+			, BOARD_DATE
+			, BOARD_VIEWS
+			, BOARD_LIKE_IT
+			, BOARD_CATEGORY
+			, MEMBER_NUM
+			, SHOW_YN
+		FROM
+		BOARD 
+		WHERE
+			BOARD_ID = #{board_id}
+	</select>
+	
+	<select id="reportedCount" resultType="java.util.Map">
+		SELECT 
+			A.CATEGORY_NUM,
+			A.CATEGORY_DES, 
+			COALESCE(B.CNT,'0') AS CNT
+		FROM REPORTED_CATEGORY A
+		LEFT OUTER JOIN (
+			SELECT 
+				REPORTED_SORT,
+				COUNT(REPORTED_SORT) AS CNT
+			FROM REPORTED_CONTENT
+			WHERE ORIGINAL_SEQ = #{board_id}
+			GROUP BY REPORTED_SORT) B
+			ON A.CATEGORY_NUM = B.REPORTED_SORT
+	</select>
+	
+	<update id="updateShowYn" parameterType="java.util.Map">
+		UPDATE BOARD SET
+			SHOW_YN = #{show_yn}
+		WHERE BOARD_ID = #{board_id}
+	</update>
+</mapper>
