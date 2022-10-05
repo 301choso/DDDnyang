@@ -1,6 +1,7 @@
 package com.dddn.DDDnyang.board;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,8 @@ public class BoardDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<BoardVO> listBoard(BoardVO boardVO) throws DataAccessException {		
-		return sqlSession.selectList("board.listBoard");
+	public List<BoardVO> listBoard(Map<String, Object> paramMap) throws DataAccessException {		
+		return sqlSession.selectList("board.listBoard",paramMap);
 	}
 
 	public BoardVO boardDetail(int board_id) throws DataAccessException {

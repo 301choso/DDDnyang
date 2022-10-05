@@ -23,13 +23,23 @@
 </insert>	
 
 <select id="getImageInfo" resultType="imageVO">
-	SELECT * FROM IMAGE 
+	SELECT IMAGE_ID
+		, IMAGE_SORT
+		, IMAGE_FILE_ORIGINAL_NAME
+		, IMAGE_FILE_NAME
+		, IMAGE_DATE
+		, BOARD_ID
+		, MEMBER_NUM
+	 FROM IMAGE 
 	WHERE 1=1
 	<if test="image_file_original_name != null">
 		AND IMAGE_FILE_ORIGINAL_NAME = #{image_file_original_name} 
 	</if>
 	<if test="image_sort != null">
 		AND IMAGE_SORT = #{image_sort}
+	</if>
+	<if test="board_id != null">
+		AND BOARD_ID = #{board_id}
 	</if>
 	LIMIT 6
 </select>

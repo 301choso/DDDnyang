@@ -1,6 +1,7 @@
 package com.dddn.DDDnyang.myPage;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,9 +20,24 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public int doMarkBoard(MyPageBookMarkVO myPageBookMarkVO) throws Exception {
-		return myPageDao.doMarkBoard(myPageBookMarkVO);
+	public int doLikeBoard(LikeBoardVO likeBoardVO) throws Exception {
+		return myPageDao.doLikeBoard(likeBoardVO);
 	}
+
+	@Override
+	public int isLikeBoard(LikeBoardVO likeBoardVO) throws Exception {
+		return myPageDao.isLikeBoard(likeBoardVO);
+	}
+
 	
-	
+	@Override
+	public List<LikeBoardVO> getLikeBoardList(LikeBoardVO likeBoardVO) throws Exception {
+		return myPageDao.getLikeBoardList(likeBoardVO);
+	}
+
+	@Override
+	public void delLikeBoard(LikeBoardVO likeBoardVO) throws Exception {
+		myPageDao.delLikeBoard(likeBoardVO);
+	}
+
 }

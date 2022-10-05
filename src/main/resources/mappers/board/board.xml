@@ -4,18 +4,8 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="board">
-<!-- <resultMap type="boradVO" id="boardResult">
-	<result property="board_id" column="BOARD_ID"/>
-	<result property="board_title" column="BOARD_TITLE"/>
-	<result property="board_content" column="BOARD_CONTENT"/>
-	<result property="board_date" column="BOARD_DATE"/>
-	<result property="board_views" column="BOARD_VIEWS"/>
-	<result property="board_like_it" column="BOARD_LIKE_IT"/>
-	<result property="board_category" column="BOARD_CATEGORY"/>
-	<result property="member_num" column="MEMBER_NUM"/>
-</resultMap> -->
 
-<select id="listBoard" resultType="boardVO">
+<select id="listBoard" resultType="boardVO" parameterType="java.util.Map">
 	SELECT BOARD_ID
 		, BOARD_TITLE
 		, BOARD_CONTENT
@@ -25,7 +15,14 @@
 		, BOARD_CATEGORY
 		, MEMBER_NUM
 	FROM
-	BOARD 
+	BOARD
+	WHERE 1=1
+	<if test="boardIdList != null">
+		AND BOARD_ID IN 
+		<foreach collection="boardIdList" item="board_id" open="(" separator="," close=")">
+			#{board_id}
+		</foreach>
+	</if> 
 </select>	
 
 <select id="boardDetail" resultType="boardVO" parameterType="int">

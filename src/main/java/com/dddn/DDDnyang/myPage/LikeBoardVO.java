@@ -2,17 +2,17 @@ package com.dddn.DDDnyang.myPage;
 
 import java.sql.Date;
 
-public class MyPageBookMarkVO {
-	private int mybookmark_num;
+public class LikeBoardVO {
+	private int like_num;
 	private int member_num;
 	private int board_id;
 	private Date reg_date;
 	
-	public int getMybookmark_num() {
-		return mybookmark_num;
+	public int getLike_num() {
+		return like_num;
 	}
-	public void setMybookmark_num(int mybookmark_num) {
-		this.mybookmark_num = mybookmark_num;
+	public void setLike_num(int like_num) {
+		this.like_num = like_num;
 	}
 	public int getMember_num() {
 		return member_num;
@@ -32,6 +32,5 @@ public class MyPageBookMarkVO {
 	public void setReg_date(Date reg_date) {
 		this.reg_date = reg_date;
 	}
-	
 	
 }

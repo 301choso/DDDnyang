@@ -1,8 +1,7 @@
 package com.dddn.DDDnyang.board;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,11 +11,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dddn.DDDnyang.image.ImageService;
-import com.dddn.DDDnyang.image.ImageVO;
+import com.dddn.DDDnyang.myPage.LikeBoardVO;
+import com.dddn.DDDnyang.myPage.MyPageService;
 
 @Controller("boardController")
 @RequestMapping(value = "/board")
@@ -26,14 +24,14 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@Autowired
-	private ImageService imageService;
+	private MyPageService myPageService;
 	
 	//리스트
 	@RequestMapping(value = "/goBoard.do", method=RequestMethod.GET)	
 	public ModelAndView goBoard() throws Exception {
 		ModelAndView mav = new ModelAndView();
 
-		List<BoardVO> boardList = boardService.listBoard(new BoardVO());
+		List<BoardVO> boardList = boardService.listBoard(new HashMap<String, Object>());
 		mav.addObject("boardList", boardList);
 		mav.setViewName("board/list");
 		return mav;
@@ -45,7 +43,15 @@ public class BoardController {
 
 		BoardVO boardInfo = boardService.boardDetail(board_id);
 		mav.addObject("boardInfo", boardInfo);
-		mav.addObject("member_num",getMemberNum(request));
+		
+		int member_num = getMemberNum(request);
+		mav.addObject("member_num",member_num);
+		
+		LikeBoardVO likeBoardVO = new LikeBoardVO();
+		likeBoardVO.setBoard_id(board_id);
+		int result = myPageService.isLikeBoard(likeBoardVO);
+		mav.addObject("result",result);
+		
 		mav.setViewName("board/view");
 		
 		return mav;

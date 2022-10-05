@@ -1,6 +1,7 @@
 package com.dddn.DDDnyang.board;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,8 +12,8 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDao boardDao;
 	
 	@Override
-	public List<BoardVO> listBoard(BoardVO boardVO) {	
-		return boardDao.listBoard(boardVO);
+	public List<BoardVO> listBoard(Map<String, Object> paramMap) {
+		return boardDao.listBoard(paramMap);
 	}
 
 	@Override

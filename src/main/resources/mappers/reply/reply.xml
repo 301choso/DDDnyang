@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="reply">
+
+<select id="listReply" resultType="replyVO" parameterType="java.util.Map">
+	SELECT REPLY_ID
+		, BOARD_ID
+		, REPLY_CONTENT
+		, REPLY_DATE
+		, MEMBER_NUM
+	FROM
+	REPLY
+	WHERE 1=1
+	<if test="replyIdList != null">
+		AND REPLY_ID IN 
+		<foreach collection="replyIdList" item="reply_id" open="(" separator="," close=")">
+			#{reply_id}
+		</foreach>
+	</if> 
+	<if test="board_id != null">
+		AND BOARD_ID = #{board_id}
+	</if>
+	ORDER BY REPLY_DATE DESC
+</select>	
+
+<insert id="insertReply" parameterType="replyVO">
+	INSERT INTO REPLY(BOARD_ID
+				, REPLY_CONTENT
+				, REPLY_DATE
+				, MEMBER_NUM)
+			VALUE( #{board_id}
+				, #{reply_content}
+				, NOW()
+				, #{member_num})
+</insert>
+
+<update id="updateReply">
+	UPDATE REPLY 
+	<set>
+		<if test="board_content != null and board_content != '' ">
+			BOARD_CONTENT = #{board_content},
+		</if>
+	</set>	
+		<where>
+			REPLY_ID = #{reply_id}
+		</where>
+</update>
+
+<delete id="deleteReply">
+	DELETE FROM REPLY
+		<where>
+			REPLY_ID = #{reply_id}
+		</where>
+</delete>
+
+</mapper>

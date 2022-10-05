@@ -18,8 +18,8 @@
 	ORDER BY BOARD_DATE DESC
 </select>	
 
-<insert id="doMarkBoard">
-	INSERT INTO MYBOOKMARK(
+<insert id="doLikeBoard">
+	INSERT INTO LIKE_BOARD(
 			MEMBER_NUM,
 			BOARD_ID,
 			REG_DATE
@@ -29,5 +29,25 @@
 			NOW()
 		)
 </insert>
+
+<select id="isLikeBoard" resultType="int">
+	SELECT COUNT(*) FROM LIKE_BOARD
+	WHERE 
+		MEMBER_NUM = #{member_num} 
+		AND BOARD_ID = #{board_id}
+</select>
+
+<select id="getLikeBoardList" resultType="likeBoardVO">
+	SELECT BOARD_ID FROM LIKE_BOARD
+	WHERE 
+		MEMBER_NUM = #{member_num} 
+</select>
+
+<delete id="delLikeBoard">
+	DELETE FROM LIKE_BOARD
+	WHERE 
+		MEMBER_NUM = #{member_num} 
+		AND BOARD_ID = #{board_id}
+</delete>
 
 </mapper>

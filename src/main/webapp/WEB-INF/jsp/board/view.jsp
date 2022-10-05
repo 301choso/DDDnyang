@@ -8,21 +8,103 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.4/dist/flowbite.min.css" />
 <script>
-function doMarkBoard() {
+$(document).ready(function(){
+	let likeResult = '${result}';
+	if(likeResult > 0){
+		$("#likeBtn").css("backgroundColor","pink");
+	}	
+	
+	getListReply();
+});
+
+function doLikekBoard() {
 	$.ajax({
 		type: "GET",
-        url: "${contextPath}/myPage/doMarkBoard.do",
+        url: "${contextPath}/myPage/isLikeBoard.do",
         data: {
         	"board_id" : ${boardInfo.board_id}
         },
-        success: function (data) {
-        	alert('관심목록 추가에 '+ message +'되었습니다.');
+        success: function (result) {
+        	insertOrdeleteLike(result);
         },
         error: function () {
-            alert('게시물 '+ message +'에 실패하였습니다.');
         }
 	});  
-	 
+}
+
+function insertOrdeleteLike(result) {
+	
+	let url = "doLikeBoard.do";
+	let bgColor = "pink";
+	
+	if(result > 0) {
+		url = "delLikeBoard.do";
+		bgColor = "";
+	} 
+	
+	$.ajax({
+		type: "GET",
+	    url: "${contextPath}/myPage/"+url,
+	    data: {
+	    	"board_id" : ${boardInfo.board_id}
+	    },
+	    success: function () {
+	    	$("#likeBtn").css("backgroundColor",bgColor);
+	    },
+	    error: function () {
+	        alert('게시물 좋아요 실패하였습니다.');
+	    }
+	});  
+}
+
+
+function getListReply() {
+	$.ajax({
+		type: "GET",
+	    url: "${contextPath}/reply/getListReply.do",
+	    data: {
+	    	"board_id" : ${boardInfo.board_id}
+	    },
+	    success: function (replyList) {
+	    	if(replyList.length > 0) {
+	    		$("#replyList").empty();
+		    	$("#replyContent").val('');
+		    	
+		    	for(var i=0; i<replyList.length; i++){
+		    		$("#replyList").append(replyList[i].reply_content);
+		    	}
+	    	}
+	    },
+	    error: function () {
+	    }
+	});  
+}
+
+function doReply() {
+	let replyContent = $("#replyContent").val();
+	if('${member_num}' == 0) {
+		alert('로그인 후 작성할 수 있습니다.');
+		return;
+	} else if(replyContent == '') {
+		alert('댓글을 입력해주세요.');
+		return;
+	} else {
+		$.ajax({
+			type: "POST",
+		    url: "${contextPath}/reply/insertReply.do",
+		    data: {
+		    	"reply_content" : replyContent,
+		    	"board_id" : ${boardInfo.board_id}
+		    },
+		    success: function () {
+		    	alert('댓글 입력이 성공했습니다');
+		    	getListReply();
+		    },
+		    error: function () {
+		    	alert('댓글 입력이 실패하였습니다');
+		    }
+		});  
+	}
 }
 </script>
 </head>
@@ -50,10 +132,59 @@ function doMarkBoard() {
 	class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
         목록
     </a>
-    <a type="submit" onclick="javascript:doMarkBoard()"
-	class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
-        관심글 등록
-    </a>
-</div>
+    <div>
+		<c:if test="${member_num ne 0}">
+		    <a class="w-16"
+		     type="submit" onclick="javascript:doLikekBoard()" id="likeBtn">
+		    	<img src="<c:url value='/resources/images/starrate.png'/>">       
+		    </a>
+	    </c:if>
+	</div>
+	
+	<!-- 댓글입력창 -->
+	<div class="flex flex-wrap -mx-4">
+	   <div class="w-full md:w-1/2 lg:w-1/3 px-4">
+	      <div class="mb-12">
+	         <label for="" class="font-medium text-base text-black block mb-3">
+	         댓글
+	        	<!-- 댓글입력버튼 -->
+				<a href="javascript:doReply()" class="
+				   py-1
+				   px-20
+				   lg:px-4
+				   xl:px-10
+				   inline-flex
+				   items-center
+				   justify-center
+				   text-center text-primary text-base
+				   border border-primary
+				   rounded-md
+				   hover:bg-primary hover:border-primary hover:text-white
+				   transition
+				   float-right
+				   ">
+				입력
+				</a>
+	         </label>
+	         <textarea rows="5" placeholder="댓글을 입력해주세요" id="replyContent" class="
+	            w-full
+	            border-[1.5px] border-form-stroke
+	            rounded-lg
+	            py-3
+	            px-5
+	            font-medium
+	            text-body-color
+	            placeholder-body-color
+	            outline-none
+	            focus:border-primary
+	            active:border-primary
+	            transition
+	            disabled:bg-[#F5F7FD] disabled:cursor-default
+	            "></textarea>
+	      </div>
+	      <div id="replyList"></div>
+	   </div>
+	</div>  
+</div> 
 </body>
 </html>

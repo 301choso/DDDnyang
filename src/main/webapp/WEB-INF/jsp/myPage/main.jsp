@@ -22,9 +22,13 @@
 	<!-- swiper -->
 	<div class="swiper">
 	  <div class="swiper-wrapper">
-	    <div class="swiper-slide">Slide 1</div>
-	    <div class="swiper-slide">Slide 2</div>
-	    <div class="swiper-slide">Slide 3</div>
+		  <c:if test = "${not empty imageList}">
+		  	<c:forEach items="${imageList}" var="img">
+		  		<div class="swiper-slide">
+		  			<img src="<c:url value='http://localhost:8282/img/temp/${img.image_file_original_name}'/>">
+		  		</div>
+		  	</c:forEach>
+		  </c:if>
 	  </div>
 	  
 	  <div class="swiper-pagination"></div>
@@ -84,7 +88,7 @@
 	<div class="pr-4"></div>
 	<!-- notice -->
 	<div class="relative overflow-x-auto shadow-md sm:rounded-lg inline-block">
-		<p>저장한 글</p>
+		<p>좋아요 한 글</p>
 	    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 	        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 	            <tr>
@@ -106,23 +110,23 @@
 	            </tr>
 	        </thead>
 	        <tbody>
-	        <c:forEach items="${boardList}" var="bList" varStatus="i">
+	        <c:forEach items="${likeboardList}" var="lList" varStatus="i">
 	            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 	                <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
 	                    ${i.index+1}
 	                </th>
 	                <td class="px-6 py-4">
-	                    ${bList.board_title}
+	                    ${lList.board_title}
 	                </td>
 	                <td class="px-6 py-4">
-	                    ${bList.board_date}
+	                    ${lList.board_date}
 	                </td>
 	                <td class="px-6 py-4">
-	                    ${bList.board_views}
+	                    ${lList.board_views}
 	                </td>
-	                <td class="px-6 py-4 text-right">
+	                <!-- <td class="px-6 py-4 text-right">
 	                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-	                </td>
+	                </td> -->
 	            </tr>
 	          </c:forEach>
 	        </tbody>
@@ -130,17 +134,17 @@
 	</div>		
 	</article>
 </section>
-<script>
+<script>	 	  
 const swiper = new Swiper('.swiper', {
 	
 	  cssMode: true,
 	  loop: true,
-	  
+
 	  pagination: {
 	    el: '.swiper-pagination',
 	    clickable: true
 	  },
-	  
+
 	  navigation: {
 	    nextEl: '.swiper-button-next',
 	    prevEl: '.swiper-button-prev',
@@ -148,11 +152,12 @@ const swiper = new Swiper('.swiper', {
 	  
 	  autoplay: {
 		delay: 3000,
-	  }
+	  },
 	  
 	  mousewheel: true,
-      keyboard: true
-	});
+      keyboard: true,
+      disableOnInteraction: false,
+	});	
 </script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.dddn.DDDnyang.main;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class MainController {
 		mav.addObject("imageList", imageList);
 		
 		// 게시판 목록
-		List<BoardVO> boardList = boardService.listBoard(new BoardVO());		
+		List<BoardVO> boardList = boardService.listBoard(new HashMap<String, Object>());		
 		mav.addObject("boardList", boardList);
 		
 		return mav;

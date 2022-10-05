@@ -1,9 +1,10 @@
 package com.dddn.DDDnyang.board;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BoardService {
-	public List<BoardVO> listBoard(BoardVO boardVO) throws Exception;
+	public List<BoardVO> listBoard(Map<String, Object> paramMap) throws Exception;
 
 	public BoardVO boardDetail(int board_id) throws Exception;
 
