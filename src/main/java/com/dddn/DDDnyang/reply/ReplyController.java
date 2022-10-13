@@ -27,30 +27,32 @@ public class ReplyController {
 	//리스트
 	@RequestMapping(value = "/getListReply.do", method=RequestMethod.GET)	
 	@ResponseBody
-	public List<ReplyVO> getListReply(@RequestParam("board_id") int board_id) throws Exception {
+	public ModelAndView getListReply(@RequestParam("board_id") int board_id, HttpServletRequest request) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("board_id", board_id);
 		
 		List<ReplyVO> replyList = replyService.listReply(paramMap);
 		mav.addObject("replyList", replyList);
-		return replyList;
+		mav.addObject("member_num",getMemberNum(request));
+		mav.setViewName("board/replyList");
+		return mav;
 	} 
 	
-	/*
-	//수정화면 이동
-	@RequestMapping(value = "/goUpdateDetail.do", method = RequestMethod.GET)
-	public ModelAndView goUpdateDetail(@RequestParam("board_id") int board_id, HttpServletRequest request) throws Exception {
-		ModelAndView mav = new ModelAndView();
+	//수정데이터 조회
+	@RequestMapping(value = "/goUpdateDetail.do", method = RequestMethod.GET, produces = "application/text; charset=UTF-8")
+	@ResponseBody
+	public String goUpdateDetail(@RequestParam("reply_id") int reply_id, HttpServletRequest request) throws Exception {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("reply_id", reply_id);
 		
-		ReplyVO boardInfo = replyService.boardDetail(board_id);
-		
-		mav.addObject("isInsUpd", "U");
-		mav.addObject("boardInfo", boardInfo);
-		mav.addObject("member_num",getMemberNum(request));
-		mav.setViewName("board/write");
-		return mav;
-	}*/
+		List<ReplyVO> reply = replyService.listReply(paramMap);	
+		String reply_content = "";
+		if(reply != null || !reply.isEmpty()) {
+			reply_content = reply.get(0).getReply_content();
+		}
+		return reply_content;
+	}
 	
 	//입력하기
 	@RequestMapping(value = "/insertReply.do", method = RequestMethod.POST)

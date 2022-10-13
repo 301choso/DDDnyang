@@ -8,6 +8,8 @@ public class ReplyVO {
 	private String reply_content;
 	private Date reply_date;
 	private int member_num;
+	private String member_id;
+	
 	public int getReply_id() {
 		return reply_id;
 	}
@@ -37,6 +39,12 @@ public class ReplyVO {
 	}
 	public void setMember_num(int member_num) {
 		this.member_num = member_num;
+	}
+	public String getMember_id() {
+		return member_id;
+	}
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
 	}
 	
 	

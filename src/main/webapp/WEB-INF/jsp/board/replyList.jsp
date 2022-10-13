@@ -6,121 +6,90 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js">
-</script><script type="text/javascript">
-
-$(document).ready(function(){
-	$("#dataTable").DataTable({
-		paging: true,
-	    info:true,
-	    bPaginate: true,
-	    responsive: true,
-	    processing: true, 
-	    ordering: true, 
-	    serverSide: false,
-	    searching: true,
-	    autoWidth:true,
-	    stateSaveParams : function (settings, data) {
-			data.search.page = "1";
-			data.search.search = "";
-			data.search.start = 0;
-			data.start = 0;
-		},
-    	ajax: {
-    		  url:"${contextPath}/memberA/createTable",
-    		  type:"POST",
-    		  data : { params : "" },
-    		},  		 	 
-    		columns: [
-		  		{ data: 'MEMBER_ID', render: function(data, type, row){
-		  			return data;
-		  		}},
-		  		{ data: 'MEMBER_EMAIL',render: function(data, type, row){
-		  			return data;
-		  		}},
-		  		{data : 'MEMBER_CALL'},
-		  		{data : 'MEMBER_NAME'},
-		  		{data : 'MEMBER_JOIN_DATE', render:function(data, type, row){
-		  			var dateForm = new Date(data);
-		  			return dateForm.getFullYear()+'-'+(dateForm.getMonth()+1)+'-'+dateForm.getDate()
-		  		}},
-		  		{data : 'MEMBER_YN', render:function(data, type, row){
-		  			return data=='Y'? "사용":"휴면계정"
-		  		}}
-		  	]
-	})
-
-
-});
-
-</script>
 </head>
-<body>
- <section style="padding-top: 90px;">
-<table id="dataTable">
-	<thead>
-		<tr>
-			<th>번호</th>
-			<th>제목</th>
-			<th>작성일</th>
-			<th>조회수</th>
-			<th>Edit</th>
-		</tr>	
-	</thead>
-</table>
-</section> 
-<%-- <section>
-	<!-- board -->
-	<article class="flex justify-center pt-4">	
-	<div class="relative overflow-x-auto shadow-md sm:rounded-lg inline-block">
-		<span>최신글</span>
-		<span><a href="${contextPath}/board/goInsertDetail.do">글쓰기</a></span>
-	    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-	        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-	            <tr>
-	                <th scope="col" class="px-6 py-3">
-	                    번호
-	                </th>
-	                <th scope="col" class="px-6 py-3">
-	                    제목
-	                </th>
-	                <th scope="col" class="px-6 py-3">
-	                    작성일
-	                </th>
-	                <th scope="col" class="px-6 py-3">
-	                    조회수
-	                </th>
-	                <th scope="col" class="px-6 py-3">
-	                    <span class="sr-only">Edit</span>
-	                </th>
-	            </tr>
-	        </thead>
-	        <tbody>
-	        <c:forEach items="${boardList}" var="bList" varStatus="i">	
-	            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-	                <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-	                    ${i.index+1}
-	                </th>
-	                <td class="px-6 py-4">
-	                    <a href="${contextPath}/board/goView.do?board_id=${bList.board_id}">${bList.board_title}</a>
-	                </td>
-	                <td class="px-6 py-4">
-	                    ${bList.board_date}
-	                </td>
-	                <td class="px-6 py-4">
-	                    ${bList.board_views}
-	                </td>
-	                <td class="px-6 py-4 text-right">
-	                    <a href="${contextPath}/board/goUpdateDetail.do?board_id=${bList.board_id}" 
-	                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-	                </td>
-	            </tr>
-	          </c:forEach>
-	        </tbody>
-	    </table>
-	</div>			
-	</article>
-</section> --%>
+<script>
+function goUpdateReply(reply_id) { //글 조회
+	$.ajax({
+		type: "GET",
+        url: "${contextPath}/reply/goUpdateDetail.do",
+        data: { 
+        	"reply_id" : reply_id
+        },
+        success: function (data) {
+        	$('#replyContent').empty();
+        	$('#replyContent').append(data);
+        	
+        	$('#cmtsBtn').empty();
+        	$('#cmtsBtn').append('<a href="javascript:doUpdateReply(' + reply_id + ')">수정</a>');
+        },
+        error: function () {
+            alert('댓글 조회에 실패하였습니다.');
+        }
+	});  
+	
+}
+
+function doUpdateReply(reply_id) {
+	let reply_content = $("#replyContent").val();
+	$.ajax({
+		type: "POST",
+        url: "${contextPath}/reply/updateReply.do",
+        data: { 
+        	"reply_id" : reply_id,
+        	"reply_content" : reply_content
+        },
+        success: function (data) {
+        	alert('댓글을 수정이 성공하였습니다.');
+        	location.reload();
+        },
+        error: function () {
+            alert('댓글 수정에 실패하였습니다.');
+        }
+	});  
+}
+
+function goDeleteReply(reply_id) {
+	if(window.confirm("댓글을 삭제하시겠습니까?")) {
+		$.ajax({
+			type: "POST",
+	        url: "${contextPath}/reply/deleteReply.do",
+	        data: { 
+	        	"reply_id" : reply_id
+	        },
+	        success: function (data) {
+	        	alert('댓글을 삭제 성공하였습니다.');
+	        	location.reload();
+	        },
+	        error: function () {
+	            alert('댓글 삭제 실패하였습니다.');
+	        }
+		});  
+	}
+}
+</script>
+<body>	
+   <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">	        
+       <tbody>
+       <c:forEach items="${replyList}" var="reply" varStatus="i">	
+           <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">                
+               <td class="px-6 py-4" style="width:50%">
+                   ${reply.reply_content}
+               </td>
+               <td class="px-6 py-4">
+                   ${reply.reply_date}
+               </td>
+               <td class="px-6 py-4">
+                   ${reply.member_id}
+               </td>
+               <td class="px-6 py-4">
+	               <c:if test="${member_num ne 0 && reply.member_num eq member_num}">
+	                   <a href="javascript:goUpdateReply(${reply.reply_id})">수정</a> / 
+	                   <a href="javascript:goDeleteReply(${reply.reply_id})">삭제</a>
+	               </c:if>
+               </td>
+           </tr>
+         </c:forEach>
+       </tbody>
+   </table>	
 </body>
 </html>

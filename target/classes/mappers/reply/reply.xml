@@ -6,13 +6,16 @@
 <mapper namespace="reply">
 
 <select id="listReply" resultType="replyVO" parameterType="java.util.Map">
-	SELECT REPLY_ID
-		, BOARD_ID
-		, REPLY_CONTENT
-		, REPLY_DATE
-		, MEMBER_NUM
+	SELECT R.REPLY_ID
+		, R.BOARD_ID
+		, R.REPLY_CONTENT
+		, R.REPLY_DATE
+		, R.MEMBER_NUM
+		, M.MEMBER_ID
 	FROM
-	REPLY
+	REPLY R
+	LEFT JOIN MEMBER M 
+	ON R.MEMBER_NUM = M.MEMBER_NUM
 	WHERE 1=1
 	<if test="replyIdList != null">
 		AND REPLY_ID IN 
@@ -22,6 +25,9 @@
 	</if> 
 	<if test="board_id != null">
 		AND BOARD_ID = #{board_id}
+	</if>
+	<if test="reply_id != null">
+		AND REPLY_ID = #{reply_id}
 	</if>
 	ORDER BY REPLY_DATE DESC
 </select>	
@@ -40,8 +46,8 @@
 <update id="updateReply">
 	UPDATE REPLY 
 	<set>
-		<if test="board_content != null and board_content != '' ">
-			BOARD_CONTENT = #{board_content},
+		<if test="reply_content != null and reply_content != '' ">
+			REPLY_CONTENT = #{reply_content},
 		</if>
 	</set>	
 		<where>

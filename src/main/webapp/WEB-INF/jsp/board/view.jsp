@@ -66,14 +66,7 @@ function getListReply() {
 	    	"board_id" : ${boardInfo.board_id}
 	    },
 	    success: function (replyList) {
-	    	if(replyList.length > 0) {
-	    		$("#replyList").empty();
-		    	$("#replyContent").val('');
-		    	
-		    	for(var i=0; i<replyList.length; i++){
-		    		$("#replyList").append(replyList[i].reply_content);
-		    	}
-	    	}
+	    	$("#replyList").append(replyList);
 	    },
 	    error: function () {
 	    }
@@ -164,7 +157,7 @@ function reportContent(){	//신고버튼 기능함수
 	class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
         목록
     </a>
-<<<<<<< HEAD
+
     <div>
 		<c:if test="${member_num ne 0}">
 		    <a class="w-16"
@@ -173,57 +166,6 @@ function reportContent(){	//신고버튼 기능함수
 		    </a>
 	    </c:if>
 	</div>
-	
-	<!-- 댓글입력창 -->
-	<div class="flex flex-wrap -mx-4">
-	   <div class="w-full md:w-1/2 lg:w-1/3 px-4">
-	      <div class="mb-12">
-	         <label for="" class="font-medium text-base text-black block mb-3">
-	         댓글
-	        	<!-- 댓글입력버튼 -->
-				<a href="javascript:doReply()" class="
-				   py-1
-				   px-20
-				   lg:px-4
-				   xl:px-10
-				   inline-flex
-				   items-center
-				   justify-center
-				   text-center text-primary text-base
-				   border border-primary
-				   rounded-md
-				   hover:bg-primary hover:border-primary hover:text-white
-				   transition
-				   float-right
-				   ">
-				입력
-				</a>
-	         </label>
-	         <textarea rows="5" placeholder="댓글을 입력해주세요" id="replyContent" class="
-	            w-full
-	            border-[1.5px] border-form-stroke
-	            rounded-lg
-	            py-3
-	            px-5
-	            font-medium
-	            text-body-color
-	            placeholder-body-color
-	            outline-none
-	            focus:border-primary
-	            active:border-primary
-	            transition
-	            disabled:bg-[#F5F7FD] disabled:cursor-default
-	            "></textarea>
-	      </div>
-	      <div id="replyList"></div>
-	   </div>
-	</div>  
-</div> 
-=======
-    <a type="submit" onclick="javascript:doMarkBoard()"
-	class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
-        관심글 등록
-    </a>
 
     <div class="max-w-2xl mx-auto pt-10">
         <button class="text-white relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
@@ -231,7 +173,6 @@ function reportContent(){	//신고버튼 기능함수
             신고하기
         </button>
     </div>
-</div>
 
   <!-- Main modal -->
   <div id="report-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-center items-center flex" aria-modal="true" role="dialog">
@@ -286,6 +227,49 @@ function reportContent(){	//신고버튼 기능함수
         </div>
     </div>
 </div>
->>>>>>> 18c1dd59f3e4a3590984a0630411d5380c98ff9c
+<!-- 댓글입력창 -->
+	<div class="flex flex-wrap -mx-4">
+	   <div class="w-full md:w-1/2 lg:w-1/3 px-4">
+         <label for="" class="font-medium text-base text-black block mb-3">
+         댓글
+        	<!-- 댓글입력버튼 -->
+        	<div id="cmtsBtn" class="
+				   py-1
+				   px-20
+				   lg:px-4
+				   xl:px-10
+				   inline-flex
+				   items-center
+				   justify-center
+				   text-center text-primary text-base
+				   border border-primary
+				   rounded-md
+				   hover:bg-primary hover:border-primary hover:text-white
+				   transition
+				   float-right">
+				<a href="javascript:doReply()">
+				입력
+				</a>
+			</div>
+         </label>
+         <textarea rows="5" placeholder="댓글을 입력해주세요" id="replyContent" class="
+            w-full
+            border-[1.5px] border-form-stroke
+            rounded-lg
+            py-3
+            px-5
+            font-medium
+            text-body-color
+            placeholder-body-color
+            outline-none
+            focus:border-primary
+            active:border-primary
+            transition
+            disabled:bg-[#F5F7FD] disabled:cursor-default
+            "></textarea>
+	      <div id="replyList"></div>
+	   </div>
+	</div>  
+</div> 
 </body>
 </html>
