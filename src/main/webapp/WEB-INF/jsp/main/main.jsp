@@ -103,28 +103,22 @@
 	                <th scope="col" class="px-6 py-3">
 	                    조회수
 	                </th>
-	                <th scope="col" class="px-6 py-3">
-	                    <span class="sr-only">Edit</span>
-	                </th>
 	            </tr>
 	        </thead>
 	        <tbody>
-	        <c:forEach items="${boardList}" var="bList" varStatus="i">
+	        <c:forEach items="${noticeList}" var="nList" varStatus="i">
 	            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 	                <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
 	                    ${i.index+1}
 	                </th>
 	                <td class="px-6 py-4">
-	                    ${bList.board_title}
+	                    <a href="${contextPath}/admin/notice/memberNotice?notice_id=${nList.NOTICE_ID}">${nList.NOTICE_TITLE}</a> 
 	                </td>
 	                <td class="px-6 py-4">
-	                    ${bList.board_date}
+	                    ${nList.NOTICE_DATE}
 	                </td>
 	                <td class="px-6 py-4">
-	                    ${bList.board_views}
-	                </td>
-	                <td class="px-6 py-4 text-right">
-	                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+	                    ${nList.notice_views}
 	                </td>
 	            </tr>
 	          </c:forEach>

@@ -22,4 +22,12 @@ public class AdminNoticeDao {
 	public List<Map<String, Object>> noticeList(){
 		return sqlSession.selectList("adminnotice.noticeList");
 	}
+	
+	public List<Map<String, Object>> noticeTop5(){
+		return sqlSession.selectList("adminnotice.noticeTop5");
+	}
+	
+	public Map<String, Object> noticeDetail(int notice_id){
+		return sqlSession.selectOne("adminnotice.noticeDetail", notice_id);
+	}
 }

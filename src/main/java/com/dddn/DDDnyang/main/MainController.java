@@ -2,6 +2,7 @@ package com.dddn.DDDnyang.main;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dddn.DDDnyang.admin.notice.AdminNoticeService;
 import com.dddn.DDDnyang.board.BoardService;
 import com.dddn.DDDnyang.board.BoardVO;
 import com.dddn.DDDnyang.image.ImageService;
@@ -20,6 +22,8 @@ public class MainController {
 	private BoardService boardService;
 	@Autowired
 	private ImageService imageService;
+	@Autowired
+	private AdminNoticeService noticeService;
 	 
 	@RequestMapping(value="/")
 	public String mainPage() {
@@ -38,6 +42,10 @@ public class MainController {
 		// 게시판 목록
 		List<BoardVO> boardList = boardService.listBoard(new HashMap<String, Object>());		
 		mav.addObject("boardList", boardList);
+		
+		// 공지사항 목록
+		List<Map<String, Object>> noticeList = noticeService.noticeTop5();		
+		mav.addObject("noticeList", noticeList);
 		
 		return mav;
 	}

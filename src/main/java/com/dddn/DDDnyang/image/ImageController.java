@@ -81,15 +81,18 @@ public class ImageController {
 				for(String info : filesInfo) {
 				    String[] data = info.split("&&");
 					ImageVO imageVO = new ImageVO();
-
-					imageVO.setImage_sort("board");
+					String login_id = (String) session.getAttribute("login_id");
+					if(login_id.equals("admin")) {
+						imageVO.setImage_sort("notice");
+					} else {
+						imageVO.setImage_sort("board");
+					}
 					imageVO.setImage_file_original_name(data[1]);
 					UUID uuid = UUID.randomUUID();
 					imageVO.setImage_file_name(uuid.toString());
 					imageVO.setMember_num(member_num);
 					imageService.insertImage(imageVO);
 				}
-		  
 			}	
 		}catch(Exception e) {
 			e.printStackTrace();

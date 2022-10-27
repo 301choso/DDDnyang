@@ -22,4 +22,14 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 		return adminNoticeDao.noticeList();
 	}
 
+	@Override
+	public List<Map<String, Object>> noticeTop5() {
+		return adminNoticeDao.noticeTop5();
+	}
+
+	@Override
+	public Map<String, Object> noticeDetail(int notice_id) {
+		return adminNoticeDao.noticeDetail(notice_id);
+	}
+
 }

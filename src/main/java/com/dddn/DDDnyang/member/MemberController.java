@@ -71,7 +71,7 @@ public class MemberController {
 		memberService.joinMember(map);
 		message = "<script>";
 		message += "alert('ȸ�� ������ �Ϸ��߽��ϴ�. ����ȭ������ �̵��մϴ�.');";
-		message += "location.href='"+request.getContextPath()+"/'";
+		message += "location.href='"+request.getContextPath()+"/main/main.do'";
 		message += "</script>";
 		} catch(Exception e){
 			message = "<script>";
@@ -107,7 +107,7 @@ public class MemberController {
 				if(loginMap.get("user_id").equals("admin")) {
 					mv.setViewName("admin/member/memberList");
 				} else {
-					mv.setViewName("main/main");
+					mv.setViewName("redirect:/main/main");
 				}
 				session.setAttribute("logOn", true);
 				session.setAttribute("login_id", member.get("member_id"));
@@ -129,7 +129,7 @@ public class MemberController {
 		session.removeAttribute("logOn");
 		session.removeAttribute("login_id");
 		session.removeAttribute("member_num");
-		return "main/main";
+		return "redirect:/main/main";
 	}
 	
 }

@@ -15,9 +15,11 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -62,45 +64,27 @@ public class AdminNoticeController {
 	}
 	
 	//공지사항 입력
-	@RequestMapping("insertNotice")
+	@RequestMapping(value = "/insertBoard.do", method = RequestMethod.POST)
 	public @ResponseBody void insertNotice(@RequestParam Map<String, Object> parameterMap) {
-	System.out.println(parameterMap.toString());
+		ModelAndView mav = new ModelAndView();
 		try {
-	//		uploadImage(file);
 			int count = adminNoticeService.insertNotice(parameterMap);
+			mav.addObject("count", count);
+			mav.setViewName("redirect:/admin/notice/noticeList");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 	}
 	
-	@RequestMapping(value="uploadImage", produces = "application/json")
-	public @ResponseBody void uploadImage(@RequestParam("file") MultipartFile multipartFile, HttpServletResponse response) throws IOException {
-		PrintWriter out = response.getWriter();
-		
-		String fileRoot = "C:\\summernote_image\\";	//저장경로
-		String originalFileName = multipartFile.getOriginalFilename();	//오리지널 파일이름
-		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//확장자
-		
-		String savedFileName = UUID.randomUUID()+extension;	//저장될 파일이름 랜덤으로
-		File targetFile = new File(fileRoot + savedFileName);
-		
-		try {
-
-			if(!targetFile.exists()) {
-				targetFile.mkdir();
-			}
-			multipartFile.transferTo(targetFile);
-//			jsonObject.addProperty("url", "/summernoteImage/"+savedFileName);
-	//		jsonObject.addProperty("responseCode", "success");
-		} catch(IOException e){
-			FileUtils.deleteQuietly(targetFile);	//실패 시 저장된 파일 삭제
-//			jsonObject.addProperty("url", "/summernoteImage/"+savedFileName);
-//			jsonObject.addProperty("responseCode", "error");
-			e.printStackTrace();
-		}
-		out.print("/summernoteImage/"+savedFileName);
-		out.close();
+	//공지사항 내용 보기
+	@RequestMapping(value="/viewPage")
+	public ModelAndView noticeDetail(@RequestParam("notice_id") int notice_id) {
+		ModelAndView mav = new ModelAndView();
+		Map<String, Object> notice= (HashMap<String, Object>) adminNoticeService.noticeDetail(notice_id);
+		mav.addObject("notice", notice);
+		mav.setViewName("admin/notice/view");
+		return mav;
 	}
 	
 	
