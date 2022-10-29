@@ -41,6 +41,7 @@
 	<if test="board_id != null">
 		AND BOARD_ID = #{board_id}
 	</if>
+	AND IMAGE_SORT = 'board'
 	LIMIT 6
 </select>
 </mapper>

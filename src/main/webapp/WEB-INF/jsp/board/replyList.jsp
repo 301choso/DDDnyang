@@ -72,16 +72,16 @@ function goDeleteReply(reply_id) {
        <tbody>
        <c:forEach items="${replyList}" var="reply" varStatus="i">	
            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">                
-               <td class="px-6 py-4" style="width:50%">
+               <td class="px-6 py-4 w-1/2">
                    ${reply.reply_content}
                </td>
-               <td class="px-6 py-4">
+               <td class="px-1 py-4 w-1/6">
                    ${reply.reply_date}
                </td>
-               <td class="px-6 py-4">
+               <td class="px-1 py-4 w-1/6">
                    ${reply.member_id}
                </td>
-               <td class="px-6 py-4">
+               <td class="px-1 py-4 w-1/6">
 	               <c:if test="${member_num ne 0 && reply.member_num eq member_num}">
 	                   <a href="javascript:goUpdateReply(${reply.reply_id})">수정</a> / 
 	                   <a href="javascript:goDeleteReply(${reply.reply_id})">삭제</a>

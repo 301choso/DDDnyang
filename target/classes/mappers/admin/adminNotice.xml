@@ -9,14 +9,12 @@
 		NOTICE_TITLE,
 		NOTICE_CONTENT,
 		NOTICE_DATE,
-		NOTICE_VIEWS,
-		NOTICE_IMAGE
+		NOTICE_VIEWS
 	) VALUES (
 		#{notice_title},
 		#{notice_contents},
 		NOW(),
-		0,
-		#{image_path}
+		0
 	)
 
 </insert>
@@ -29,5 +27,27 @@
 		NOTICE_VIEWS
 	FROM NOTICE 
 	ORDER BY NOTICE_ID DESC
+</select>
+
+<select id="noticeTop5" resultType="java.util.Map">
+	SELECT 
+		NOTICE_ID,
+		NOTICE_TITLE,
+		NOTICE_DATE,
+		NOTICE_VIEWS
+	FROM NOTICE 
+	ORDER BY NOTICE_ID DESC
+	LIMIT 5
+</select>
+
+<select id="noticeDetail" resultType="java.util.Map">
+	SELECT 
+		NOTICE_ID,
+		NOTICE_TITLE,
+		NOTICE_CONTENT,
+		NOTICE_DATE,
+		NOTICE_vIEWS
+	FROM NOTICE
+	WHERE NOTICE_ID = #{notice_id}
 </select>
 </mapper>

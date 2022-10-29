@@ -10,10 +10,8 @@
 <script>
 $(document).ready(function(){
 	let likeResult = '${result}';
-	if(likeResult > 0){
-		$("#likeBtn").css("backgroundColor","pink");
-	}	
-	
+	let bgcolor = likeResult > 0 ? "pink" : "LightGray";	
+	$("#likeBtn").css("backgroundColor",bgcolor);
 	getListReply();
 });
 
@@ -39,7 +37,7 @@ function insertOrdeleteLike(result) {
 	
 	if(result > 0) {
 		url = "delLikeBoard.do";
-		bgColor = "";
+		bgColor = "LightGray";
 	} 
 	
 	$.ajax({
@@ -91,7 +89,7 @@ function doReply() {
 		    },
 		    success: function () {
 		    	alert('댓글 입력이 성공했습니다');
-		    	getListReply();
+		    	location.reload();
 		    },
 		    error: function () {
 		    	alert('댓글 입력이 실패하였습니다');
@@ -138,7 +136,8 @@ function reportContent(){	//신고버튼 기능함수
 <div class="max-w-2xl mx-auto pt-10">
 	<div>카테고리 : ${boardInfo.board_category}</div>
     <div class="flex items-center py-2 px-3 bg-gray-50 rounded-lg dark:bg-gray-700">       
-	    제목 <div id="board_title" rows="1" class="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border 
+	    <div class="w-10">제목</div>
+	    <div id="board_title" rows="1" class="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border 
 	    border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 	      ${boardInfo.board_title}
 	</div>	         
@@ -147,7 +146,7 @@ function reportContent(){	//신고버튼 기능함수
     	${boardInfo.board_content}
     </div>  
     <c:set value="${sessionScope.member_num}" var="memberNum"/>
- 	<c:if test="${member_num ne 0 && memberNum eq member_num}">
+ 	<c:if test="${member_num ne 0 && boardInfo.member_num eq member_num}">
     <a type="submit" href="${contextPath}/board/goUpdateDetail.do?board_id=${boardInfo.board_id}"
 	class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
         수정
@@ -158,14 +157,13 @@ function reportContent(){	//신고버튼 기능함수
         목록
     </a>
 
-    <div>
-		<c:if test="${member_num ne 0}">
-		    <a class="w-16"
-		     type="submit" onclick="javascript:doLikekBoard()" id="likeBtn">
-		    	<img src="<c:url value='/resources/images/starrate.png'/>">       
-		    </a>
-	    </c:if>
-	</div>
+
+	<c:if test="${member_num ne 0 && boardInfo.member_num ne member_num}">
+	    <a class="w-16 float-right"
+	     type="submit" onclick="javascript:doLikekBoard()" id="likeBtn">
+	    	<img src="<c:url value='/resources/images/starrate.png'/>">       
+	    </a>
+    </c:if>
 
     <div class="max-w-2xl mx-auto pt-10">
         <button class="text-white relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
